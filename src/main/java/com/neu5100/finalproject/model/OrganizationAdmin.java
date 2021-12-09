@@ -60,6 +60,10 @@ public class OrganizationAdmin {
     public void setRole(int role) {
         this.role = role;
     }
+    public boolean chooseRequest(int request_id,int receiver_id){
+        Data instance = Data.getInstance();
+         return instance.insert(request_id,receiver_id);
+    }
     public ArrayList<Receiver> getReceiver(int role){
         try {
             Data instance = Data.getInstance();
@@ -122,6 +126,28 @@ public class OrganizationAdmin {
                 int role = rs.getInt("role");
                 Receiver r = new Receiver(receiver_id, receiver_name, receiver_pw, role);
                 array.add(r);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public ArrayList<Voluntary> queryVolByDisaster(int disaster_id){
+         try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryVolByDisaster(disaster_id);
+            ArrayList<Voluntary> array = new ArrayList<>();
+            //receiver_info.receiver_id,receiver_name,receiver_pw,role
+            while(rs.next()){
+                int vid = rs.getInt("vid");
+                String vname= rs.getString("vname");
+                String vol_pw = rs.getString("vol_pw");
+                int is_individual = rs.getInt("is_individual");
+                String city = rs.getString("city");
+                String email = rs.getString("email");
+                Voluntary v = new Voluntary(vid, vname, vol_pw, is_individual, city, email);
+                array.add(v);
             }
             return array;
         } catch (SQLException ex) {
