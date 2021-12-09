@@ -21,13 +21,20 @@ public class Voluntary {
     private String vname;
     private String pw;
     private int is_individual;
+    private String city;
+    private String email;
 
-    public Voluntary(int vid, String vname, String pw, int is_individual) {
+    public Voluntary(int vid, String vname, String pw, int is_individual, String city, String email) {
         this.vid = vid;
         this.vname = vname;
         this.pw = pw;
         this.is_individual = is_individual;
+        this.city = city;
+        this.email = email;
     }
+   
+
+   
     
     public int getVid() {
         return vid;
@@ -60,6 +67,23 @@ public class Voluntary {
     public void setIs_individual(int is_individual) {
         this.is_individual = is_individual;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     
     public  ArrayList<Disaster> queryDisaster(){
         try {
