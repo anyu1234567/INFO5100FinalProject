@@ -42,13 +42,13 @@ public class HospitalRequestManage extends javax.swing.JPanel {
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Date"
+                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Date", "Feedback"
             }
         ));
         jScrollPane1.setViewportView(tblRequest);

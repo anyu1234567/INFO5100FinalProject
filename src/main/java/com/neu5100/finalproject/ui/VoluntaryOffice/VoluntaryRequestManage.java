@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.neu5100.finalproject.ui.FiremanOffice;
+package com.neu5100.finalproject.ui.VoluntaryOffice;
+
+import com.neu5100.finalproject.ui.FiremanOffice.*;
 
 /**
  *
  * @author Lenovo
  */
-public class FiresafetyRequestManage extends javax.swing.JPanel {
+public class VoluntaryRequestManage extends javax.swing.JPanel {
 
     /**
      * Creates new form PoliceAdmin
      */
-    public FiresafetyRequestManage() {
+    public VoluntaryRequestManage() {
         initComponents();
     }
 
@@ -37,6 +39,8 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         btnReject = new javax.swing.JButton();
         cmbFireman = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        chbOrganization = new javax.swing.JCheckBox();
+        chbIndividual = new javax.swing.JCheckBox();
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,7 +63,7 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("宋体", 0, 24)); // NOI18N
-        jLabel2.setText("Manage FireSafety Request");
+        jLabel2.setText("Manage Voluntary Request");
 
         btnAccept.setText("Accept Request");
 
@@ -71,26 +75,26 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
 
         cmbFireman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel5.setText("Group:");
+        jLabel5.setText("Role to Assign:");
+
+        chbOrganization.setText("Non-Profit Organization");
+        chbOrganization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbOrganizationActionPerformed(evt);
+            }
+        });
+
+        chbIndividual.setText("Individual Voluntary");
+        chbIndividual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbIndividualActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbFireman, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnReject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,10 +103,30 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(140, 140, 140))))
+                        .addGap(137, 137, 137))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnReject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chbIndividual)
+                    .addComponent(chbOrganization)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbFireman, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -112,29 +136,41 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
                 .addComponent(btnBack)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAccept)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAssign)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbFireman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
+                        .addComponent(btnAssign))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReject)
                         .addGap(18, 18, 18)
                         .addComponent(btnComplete)))
-                .addGap(209, 209, 209))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbFireman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbOrganization)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chbIndividual)
+                .addGap(187, 187, 187))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void chbOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbOrganizationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbOrganizationActionPerformed
+
+    private void chbIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbIndividualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbIndividualActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,6 +179,8 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnComplete;
     private javax.swing.JButton btnReject;
+    private javax.swing.JCheckBox chbIndividual;
+    private javax.swing.JCheckBox chbOrganization;
     private javax.swing.JComboBox<String> cmbFireman;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
