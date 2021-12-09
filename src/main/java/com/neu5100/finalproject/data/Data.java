@@ -6,6 +6,7 @@
 package com.neu5100.finalproject.data;
 
 import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import com.neu5100.finalproject.model.Population;
@@ -290,6 +291,22 @@ public class Data {
         } catch (SQLException ex) {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
              return null;
+        }
+    }
+
+    public boolean insert(Disaster d) {
+       String sql = "insert into disaster values(?,?,?,?,?)";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, d.getDisaster_id());
+            stmt.setString(2, d.getDisaster_name());
+            stmt.setInt(3, d.getDisaster_level());
+            stmt.setInt(4, d.getAllowed_voluntary());
+            stmt.setInt(5, d.getMax_voluntary());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
         }
     }
 }
