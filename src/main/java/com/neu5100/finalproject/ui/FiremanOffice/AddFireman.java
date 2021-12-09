@@ -187,6 +187,7 @@ public class AddFireman extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        // backAction();
     }//GEN-LAST:event_btnBackActionPerformed
 
 
