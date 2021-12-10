@@ -72,7 +72,7 @@ public class PolicemanManage extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Name", "Password"
+                "ID", "UserName", "Password", "Group"
             }
         ));
         jScrollPane1.setViewportView(tblPolice);

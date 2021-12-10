@@ -51,13 +51,13 @@ public class VoluntaryManage extends javax.swing.JPanel {
 
         tblVoluntary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Name", "Password", "Type(Individual or not)"
+                "ID", "UserName", "Password", "Type(Individual or not)"
             }
         ));
         jScrollPane1.setViewportView(tblVoluntary);

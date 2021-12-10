@@ -50,13 +50,13 @@ public class FiremanManage extends javax.swing.JPanel {
 
         tblFireman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Name", "Password", "Group Number"
+                "ID", "UserName", "Password", "Group Number"
             }
         ));
         jScrollPane1.setViewportView(tblFireman);

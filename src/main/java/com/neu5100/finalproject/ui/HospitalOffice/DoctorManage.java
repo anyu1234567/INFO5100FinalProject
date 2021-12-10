@@ -50,13 +50,13 @@ public class DoctorManage extends javax.swing.JPanel {
 
         tblDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Name", "Password"
+                "ID", "UserName", "Password"
             }
         ));
         jScrollPane1.setViewportView(tblDoctor);
