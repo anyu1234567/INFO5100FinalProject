@@ -61,4 +61,8 @@ public class IncidentOps {
         Data instance = Data.getInstance();
         return instance.insert(wr);
     }
+    public boolean createDisaster(Disaster d){
+        Data instance = Data.getInstance();
+        return instance.insert(d);
+    }
 }
