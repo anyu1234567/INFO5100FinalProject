@@ -102,4 +102,10 @@ public class Receiver {
             return false;
         }
     }
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return instance.updateRec(this);
+    }
+
+
 }

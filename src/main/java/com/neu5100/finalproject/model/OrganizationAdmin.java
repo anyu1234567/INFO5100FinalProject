@@ -171,5 +171,9 @@ public class OrganizationAdmin {
             return false;
         }
     }
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return instance.updateOrgAdmin(this);
+    }
     
 }

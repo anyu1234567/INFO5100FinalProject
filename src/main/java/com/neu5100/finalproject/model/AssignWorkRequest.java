@@ -5,6 +5,8 @@
  */
 package com.neu5100.finalproject.model;
 
+import com.neu5100.finalproject.data.Data;
+
 /**
  *
  * @author An
@@ -115,5 +117,12 @@ public class AssignWorkRequest {
         }
         return true;
     }
-    
+    /**
+     * update work request in data base
+     * @return 
+     */
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return  instance.updateReq(this);
+    }
 }

@@ -134,4 +134,8 @@ public class Voluntary {
         }
         
     }
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return instance.updateVol(this);
+    }
 }

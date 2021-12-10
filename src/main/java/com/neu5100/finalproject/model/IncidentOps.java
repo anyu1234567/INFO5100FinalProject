@@ -89,4 +89,8 @@ public class IncidentOps {
         }
         
     }
+    public boolean update(){
+         Data instance = Data.getInstance();
+        return  instance.updateIncident(this);
+    }
 }

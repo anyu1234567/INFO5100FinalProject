@@ -5,6 +5,8 @@
  */
 package com.neu5100.finalproject.model;
 
+import com.neu5100.finalproject.data.Data;
+
 /**
  *
  * @author An
@@ -83,6 +85,12 @@ public class Emergency {
 
     public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
+    }/**
+     * update emergency
+     * @return 
+     */
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return  instance.updateEm(this);
     }
-    
 }
