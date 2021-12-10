@@ -111,4 +111,27 @@ public class Voluntary {
         return instance.insert(disaster_id,this);
         
     }
+    public boolean registerVol(){
+        Data instance = Data.getInstance();
+        return instance.insert(this);
+    }
+    public boolean login(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs= instance.queryVol(this);
+            while(rs.next()){
+               
+               this.vid = rs.getInt("vid");
+               this.is_individual = rs.getInt("is_individual");
+               this.city = rs.getString("city");
+               this.email = rs.getString("email");
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
 }

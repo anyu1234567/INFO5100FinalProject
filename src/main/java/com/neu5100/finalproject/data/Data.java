@@ -9,7 +9,9 @@ import com.neu5100.finalproject.model.AssignWorkRequest;
 import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Population;
+import com.neu5100.finalproject.model.Receiver;
 import com.neu5100.finalproject.model.Voluntary;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -307,6 +309,75 @@ public class Data {
         } catch (SQLException ex) {
             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
              return false;
+        }
+    }
+
+    public ResultSet queryOps(IncidentOps ops) {
+        String sql = "SELECT * FROM ecosystem.911ops where ops_name= ? and ops_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, ops.getOps_name());
+            stmt.setString(2, ops.getOps_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAdmin(OrganizationAdmin admin) {
+        String sql = "SELECT * FROM ecosystem.org_admin where admin_name= ? and admin_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, admin.getAdmin_name());
+            stmt.setString(2, admin.getAdmin_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryRec(Receiver receiver) {
+       String sql = "SELECT * FROM ecosystem.receiver_info where receiver_name= ? and receiver_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, receiver.getReceiver_name());
+            stmt.setString(2, receiver.getReceiver_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean insert(Voluntary vol) {
+        String sql = "insert into voluntary values(?,?,?,?,?,?)";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vol.getVid());
+            stmt.setString(2, vol.getVname());
+            stmt.setString(3, vol.getPw());
+            stmt.setInt(4, vol.getIs_individual());
+            stmt.setString(5, vol.getCity());
+            stmt.setString(6, vol.getEmail());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public ResultSet queryVol(Voluntary vol) {
+        String sql = "SELECT * FROM ecosystem.voluntary where vname= ? and vol_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,vol.getVname() );
+            stmt.setString(2, vol.getPw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
         }
     }
 }

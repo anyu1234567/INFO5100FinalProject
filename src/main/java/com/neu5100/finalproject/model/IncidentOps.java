@@ -6,6 +6,10 @@
 package com.neu5100.finalproject.model;
 
 import com.neu5100.finalproject.data.Data;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +20,11 @@ public class IncidentOps {
     private String ops_name;
     private String ops_pw;
 
+    public IncidentOps(String ops_name, String ops_pw) {
+        this.ops_name = ops_name;
+        this.ops_pw = ops_pw;
+    }
+    
     public IncidentOps(int ops_id, String ops_name, String ops_pw) {
         this.ops_id = ops_id;
         this.ops_name = ops_name;
@@ -64,5 +73,20 @@ public class IncidentOps {
     public boolean createDisaster(Disaster d){
         Data instance = Data.getInstance();
         return instance.insert(d);
+    }
+    public boolean login(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryOps(this);
+            while(rs.next()){
+               this.setOps_id(rs.getInt("ops_id"));
+               return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(IncidentOps.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
     }
 }

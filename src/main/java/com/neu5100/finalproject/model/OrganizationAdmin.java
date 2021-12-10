@@ -155,4 +155,21 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    public boolean login(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs= instance.queryAdmin(this);
+            while(rs.next()){
+                int role = rs.getInt("role");
+                if(role!=this.role) break;
+                this.admin_id= rs.getInt("admin_id");
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }
