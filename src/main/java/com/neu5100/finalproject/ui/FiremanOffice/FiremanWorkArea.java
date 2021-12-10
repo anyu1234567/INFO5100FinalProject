@@ -5,6 +5,10 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.data.Data;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Lenovo
@@ -14,6 +18,10 @@ public class FiremanWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form FiremanManage
      */
+    
+    JPanel userProcessContainer;
+    Data data;
+    
     public FiremanWorkArea() {
         initComponents();
     }
@@ -138,6 +146,10 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageFiremanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFiremanActionPerformed
         // TODO add your handling code here:
+        FiremanManage firemanManage =new FiremanManage(userProcessContainer,data);
+        userProcessContainer.add("firemanManage",firemanManage);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageFiremanActionPerformed
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed

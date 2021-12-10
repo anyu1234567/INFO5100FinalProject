@@ -5,6 +5,9 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.data.Data;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Lenovo
@@ -14,10 +17,17 @@ public class FiremanManage extends javax.swing.JPanel {
     /**
      * Creates new form FiremanManage
      */
-    public FiremanManage() {
+    
+    JPanel userProcessContainer;
+    Data data;
+    
+    public FiremanManage(JPanel userProcessContainer,Data data) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.data = data;
+        //popData();
     }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
