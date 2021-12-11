@@ -68,7 +68,7 @@ public class OrganizationAdmin {
      */
     public boolean chooseRequest(int request_id,int receiver_id){
         Data instance = Data.getInstance();
-         return instance.insert(request_id,receiver_id);
+        return instance.insert(request_id,receiver_id);
     }
     /**
      * 获取admin所能管理的receiver
