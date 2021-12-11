@@ -84,7 +84,10 @@ public class Voluntary {
         this.email = email;
     }
     
-    
+    /**
+     * 查询可以注册的disaster
+     * @return 
+     */
     public  ArrayList<Disaster> queryDisaster(){
         try {
             Data instance = Data.getInstance();
@@ -106,11 +109,20 @@ public class Voluntary {
             return null;
         }
     }
+    /**
+     * 通过disaster id 选择disaster
+     * @param disaster_id
+     * @return 
+     */
     public boolean chooseDisaster(int disaster_id){
         Data instance = Data.getInstance();
         return instance.insert(disaster_id,this);
         
     }
+    /**
+     * 注册voluntary—— 将类中的信息增加到数据库中
+     * @return 
+     */
     public boolean registerVol(){
         Data instance = Data.getInstance();
         return instance.insert(this);

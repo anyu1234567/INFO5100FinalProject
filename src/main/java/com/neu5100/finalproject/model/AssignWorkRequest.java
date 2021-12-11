@@ -25,8 +25,10 @@ public class AssignWorkRequest {
 
     @Override
     public String toString() {
-        return "AssignWorkRequest{" + "assign_id=" + assign_id + ", emergency_id=" + emergency_id + ", receiver_request=" + receiver_request + ", need_police=" + need_police + ", need_hospital=" + need_hospital + ", need_firman=" + need_firman + ", satus=" + satus + ", vol_number=" + vol_number + ", disaster_id=" + disaster_id + '}';
+        return "" + assign_id;
     }
+
+    
 
     public AssignWorkRequest(int assign_id, int emergency_id, int need_police, int need_hospital, int need_firman, int satus, int vol_number ,int disaster) {
         this.assign_id = assign_id;
@@ -110,7 +112,10 @@ public class AssignWorkRequest {
     public void setDisaster_id(int disaster_id) {
         this.disaster_id = disaster_id;
     }
-
+    /**
+     * 判断事件是不是disaster
+     * @return 
+     */
     public boolean isDisaster() {
         if(this.disaster_id<=0){
             return false;

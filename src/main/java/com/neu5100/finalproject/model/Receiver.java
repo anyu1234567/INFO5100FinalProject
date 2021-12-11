@@ -16,12 +16,18 @@ import java.util.logging.Logger;
  *
  * @author An
  */
+
 public class Receiver {
     private int receiver_id;
     private String receiver_name;
     private String receiver_pw;
     private int role;
 
+    @Override
+    public String toString() {
+        return ""+receiver_id;
+    }
+    
     public Receiver(int receiver_id, String receiver_name, String receiver_pw, int role) {
         this.receiver_id = receiver_id;
         this.receiver_name = receiver_name;
@@ -61,7 +67,10 @@ public class Receiver {
         this.role = role;
     }
     
-    
+    /**
+     * 通过自身receiver id 查询 分配到的request
+     * @return 
+     */
     public ArrayList<AssignWorkRequest> queryAssignedRequest(){
         try {
             Data instance = Data.getInstance();

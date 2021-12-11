@@ -66,6 +66,7 @@ public class Disaster {
     public void setMax_voluntary(int max_voluntary) {
         this.max_voluntary = max_voluntary;
     }
+    
      public boolean update(){
         Data instance = Data.getInstance();
         return  instance.updateDisaster(this);

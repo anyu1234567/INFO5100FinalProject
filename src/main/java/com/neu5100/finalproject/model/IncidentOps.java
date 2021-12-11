@@ -65,11 +65,22 @@ public class IncidentOps {
         return instance.insert(p);
         
     }
-
+     /**
+      * 创建事件
+      * @param wr
+      * @return 
+      */
+    
     public boolean createAssignEmergencyWorkRequest(AssignWorkRequest wr) {
         Data instance = Data.getInstance();
         return instance.insert(wr);
     }
+    /**
+     * 创建需要关联到事件的disaster
+     * @param d
+     * @return 
+     */
+    
     public boolean createDisaster(Disaster d){
         Data instance = Data.getInstance();
         return instance.insert(d);

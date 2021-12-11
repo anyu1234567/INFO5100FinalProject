@@ -5,6 +5,14 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Emergency;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Lenovo
@@ -14,8 +22,36 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
     /**
      * Creates new form PoliceAdmin
      */
-    public FiresafetyRequestManage() {
+    
+    JPanel userProcessContainer;
+    Receiver receiver;
+    AssignWorkRequest assignWorkRequest;
+    Emergency emergency;
+    OrganizationAdmin admin;
+    
+    public FiresafetyRequestManage(JPanel userProcessContainer,AssignWorkRequest assignWorkRequest,Emergency emergency,Receiver receiver,OrganizationAdmin admin) {
         initComponents();
+        this.admin =admin;
+        this.userProcessContainer = userProcessContainer;
+        this.assignWorkRequest = assignWorkRequest;
+        this.emergency = emergency;
+        this.receiver = receiver;
+        popData();
+    }
+    
+    public void popData() {
+
+        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
+        model.setRowCount(0);
+        
+        for (AssignWorkRequest assignWorkRequest :admin.queryWorkRequestByRole() ) {
+                Object row[] = new Object[4];
+                row[0] = customer.getCustomerAccount().getEmployee().getId();
+                row[1] = customer.getCustomerAccount().getUsername();
+                row[2] = customer.getCustomerAccount().getEmployee().getName();
+                row[3] = customer.getAddress();
+                model.addRow(row);
+        }
     }
 
     /**
@@ -130,6 +166,9 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
 
