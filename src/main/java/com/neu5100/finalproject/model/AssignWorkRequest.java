@@ -110,7 +110,10 @@ public class AssignWorkRequest {
     public void setDisaster_id(int disaster_id) {
         this.disaster_id = disaster_id;
     }
-
+    /**
+     * 判断事件是不是disaster
+     * @return 
+     */
     public boolean isDisaster() {
         if(this.disaster_id<=0){
             return false;

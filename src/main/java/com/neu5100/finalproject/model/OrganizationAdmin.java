@@ -60,10 +60,21 @@ public class OrganizationAdmin {
     public void setRole(int role) {
         this.role = role;
     }
+    /**
+     * 关联request 和receiver ，功能：给分配事件receiver
+     * @param request_id
+     * @param receiver_id
+     * @return 
+     */
     public boolean chooseRequest(int request_id,int receiver_id){
         Data instance = Data.getInstance();
          return instance.insert(request_id,receiver_id);
     }
+    /**
+     * 获取admin所能管理的receiver
+     * @param role
+     * @return 
+     */
     public ArrayList<Receiver> getReceiver(int role){
         try {
             Data instance = Data.getInstance();
@@ -83,6 +94,10 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    /**
+     * 查询对应身份权限下的事件：police admin只能看到需要警察的request
+     * @return 
+     */
     public ArrayList<AssignWorkRequest> queryWorkRequestByRole(){
          try {
             Data instance = Data.getInstance();
@@ -113,6 +128,11 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    /**
+     * 通过request id 查询分配到此事件的receiver
+     * @param request_id
+     * @return 
+     */
     public ArrayList<Receiver> queryReceiverByRequest(int request_id){
         try {
             Data instance = Data.getInstance();
@@ -133,6 +153,11 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    /**
+     * 通过disaster id 查询选择了此disaster的voluntary
+     * @param disaster_id
+     * @return 
+     */
     public ArrayList<Voluntary> queryVolByDisaster(int disaster_id){
          try {
             Data instance = Data.getInstance();

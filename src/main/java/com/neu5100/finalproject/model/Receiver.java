@@ -61,7 +61,10 @@ public class Receiver {
         this.role = role;
     }
     
-    
+    /**
+     * 通过自身receiver id 查询 分配到的request
+     * @return 
+     */
     public ArrayList<AssignWorkRequest> queryAssignedRequest(){
         try {
             Data instance = Data.getInstance();

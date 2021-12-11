@@ -501,7 +501,7 @@ public class Data {
             stmt.setString(1, vol.getVname());
             stmt.setString(2, vol.getPw());
             stmt.setInt(3, vol.getIs_individual());
-            stmt.setString(4, vol.getCity());
+            stmt.setString(4, vol.getCity());                           
             stmt.setString(5, vol.getEmail());
             stmt.setInt(6, vol.getVid());
             return stmt.execute();
