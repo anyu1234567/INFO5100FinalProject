@@ -5,6 +5,9 @@
  */
 package userinterface.OperaterWorkarea;
 
+import com.neu5100.finalproject.data.Test;
+import javax.swing.JPanel;
+
 /**
  *
  * @author chenghongmei
@@ -16,6 +19,10 @@ public class ProcessJPanel extends javax.swing.JPanel {
      */
     public ProcessJPanel() {
         initComponents();
+    }
+
+    ProcessJPanel(JPanel OperatorProcessContainer, Test test) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

@@ -5,12 +5,21 @@
  */
 package userinterface.OperaterWorkarea;
 
+import com.neu5100.finalproject.data.Test;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author chenghongmei
  */
 public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
+     private JPanel OperatorProcessContainer;
+     private Test test; 
     /**
      * Creates new form OperaterWorkareaJPanel
      */
@@ -28,7 +37,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnProcess = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
         btnProcess1 = new javax.swing.JButton();
@@ -38,16 +47,21 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("911 OPERATOR WORK AREA");
 
-        btnProcess.setText("Create");
-        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcessActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
         jButton1.setText("report to disaster organization");
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         btnProcess1.setText("Process");
         btnProcess1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +93,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                         .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1)
-                            .addComponent(btnProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnProcess1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,7 +115,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProcess)
+                    .addComponent(btnCreate)
                     .addComponent(btnProcess1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -111,17 +125,72 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProcessActionPerformed
+       CreatJPanel createJPanel  = new  CreatJPanel (OperatorProcessContainer,test);
+         Component creatJPanel = null;
+       OperatorProcessContainer.add("CreatJPanel",creatJPanel);
+       CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
+       layout.next(OperatorProcessContainer);
+        
+        
+        
+        /*
+         CustomerPlaceOrderJPanel customerPlaceOrderJPanel = new CustomerPlaceOrderJPanel(userProcessContainer, ecoSystem, customer);
+        userProcessContainer.add("CustomerPlaceOrderJPanel",customerPlaceOrderJPanel);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
+        */
+        
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnProcess1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcess1ActionPerformed
         // TODO add your handling code here:
+     ProcessJPanel processJPanel = new ProcessJPanel(OperatorProcessContainer,test);
+     OperatorProcessContainer.add("ProcessJPanel",processJPanel);
+     CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
+     layout.next(OperatorProcessContainer);
+           
+        
     }//GEN-LAST:event_btnProcess1ActionPerformed
 
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        
+         int selectedRowIndex = tableOrderList.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select an order first.");
+            return;
+        }       
+        
+        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
+        
+       ViewEventJPanel viewEventJPanel = new ViewEventJPanel(OperatorProcessContainer, (OrderRequest)model.getValueAt(selectedRowIndex, 0));
+        userProcessContainer.add("OrderViewJPanel",orderViewJPanel);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    
+     public void populateOrderTable(){
+        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
+        model.setRowCount(0);
+        for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
+            Object row[] = new Object[5];
+            System.out.println(workRequest);
+            row[0] = workRequest;
+            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
+            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
+            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
+            row[3] = workRequest.getStatus();
+            row[4] = workRequest.getComment();
+            model.addRow(row);
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnProcess;
+    private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnProcess1;
     private javax.swing.JButton btnView;
     private javax.swing.JButton jButton1;
@@ -129,4 +198,10 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private static class tableOrderList {
+
+        public tableOrderList() {
+        }
+    }
 }
