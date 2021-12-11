@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  *
  * @author An
  */
+
 public class Receiver {
     private int receiver_id;
     private String receiver_name;

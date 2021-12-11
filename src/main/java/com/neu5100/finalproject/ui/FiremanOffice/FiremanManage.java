@@ -6,6 +6,7 @@
 package com.neu5100.finalproject.ui.FiremanOffice;
 
 import com.neu5100.finalproject.data.Data;
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import javax.swing.JPanel;
 
 /**
@@ -19,12 +20,12 @@ public class FiremanManage extends javax.swing.JPanel {
      */
     
     JPanel userProcessContainer;
-    Data data;
+    OrganizationAdmin organizationAdmin;
     
-    public FiremanManage(JPanel userProcessContainer,Data data) {
+    public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.data = data;
+        this.organizationAdmin = organizationAdmin;
         //popData();
     }
   
