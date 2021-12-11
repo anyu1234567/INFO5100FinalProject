@@ -23,6 +23,11 @@ public class Receiver {
     private String receiver_pw;
     private int role;
 
+    @Override
+    public String toString() {
+        return ""+receiver_id;
+    }
+    
     public Receiver(int receiver_id, String receiver_name, String receiver_pw, int role) {
         this.receiver_id = receiver_id;
         this.receiver_name = receiver_name;

@@ -75,18 +75,41 @@ public class OrganizationAdmin {
      * @param role
      * @return 
      */
-    public ArrayList<Receiver> getReceiver(int role){
+    public ArrayList<Receiver> getReceiver(){
         try {
             Data instance = Data.getInstance();
             ResultSet selectAll = instance.selectAll("receiver_info");
             ArrayList<Receiver>  arr_re = new ArrayList<>();
             while(selectAll.next()){
-                int id = selectAll.getInt(1);
-                String name = selectAll.getString(2);
-                String pw = selectAll.getString(3);
-                int receiver_role = selectAll.getInt(4);
-                Receiver r = new Receiver(id,name,pw,receiver_role);
-                arr_re.add(r);
+                if(this.role==0){
+                    int id = selectAll.getInt(1);
+                    String name = selectAll.getString(2);
+                    String pw = selectAll.getString(3);
+                    int receiver_role = selectAll.getInt(4);
+                    Receiver r = new Receiver(id,name,pw,receiver_role);
+                    if(receiver_role==0){
+                        arr_re.add(r);                        
+                    }
+                }else if(this.role==1){
+                    int id = selectAll.getInt(1);
+                    String name = selectAll.getString(2);
+                    String pw = selectAll.getString(3);
+                    int receiver_role = selectAll.getInt(4);
+                    Receiver r = new Receiver(id,name,pw,receiver_role);
+                    if(receiver_role==1){
+                        arr_re.add(r);                        
+                    }
+                }else if(this.role==2){
+                    int id = selectAll.getInt(1);
+                    String name = selectAll.getString(2);
+                    String pw = selectAll.getString(3);
+                    int receiver_role = selectAll.getInt(4);
+                    Receiver r = new Receiver(id,name,pw,receiver_role);
+                    if(receiver_role==2||receiver_role==3){
+                        arr_re.add(r);                        
+                    }
+                }
+                    
             }
             return arr_re;
         } catch (SQLException ex) {

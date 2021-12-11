@@ -7,7 +7,11 @@ package com.neu5100.finalproject.ui.FiremanOffice;
 
 import com.neu5100.finalproject.data.Data;
 import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,14 +25,31 @@ public class FiremanManage extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     OrganizationAdmin organizationAdmin;
+    Receiver receiver;
     
-    public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
+    public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin,Receiver receiver) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organizationAdmin = organizationAdmin;
-        //popData();
+        this.receiver = receiver;
+        popData();
     }
   
+    public void popData() {
+
+        DefaultTableModel model = (DefaultTableModel) tblFireman.getModel();
+        model.setRowCount(0);
+        
+        for (Receiver receriver : organizationAdmin.getReceiver()) {
+                Object row[] = new Object[4];
+                row[0] = receriver;
+                row[1] = receiver.getReceiver_name();
+                row[2] = receiver.getReceiver_pw();
+                //row[3] = //分组？
+                model.addRow(row);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,10 +94,25 @@ public class FiremanManage extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblFireman);
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnModify.setText("Modify");
         btnModify.addActionListener(new java.awt.event.ActionListener() {
@@ -159,14 +195,51 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        //backAction();
+        backAction();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        AddFireman addFirman =new AddFireman(userProcessContainer,receiver);
+        userProcessContainer.add("addFirman",addFirman);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        ViewFireman viewFireman =new ViewFireman(userProcessContainer,receiver);
+        userProcessContainer.add("viewFireman",viewFireman);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+         int selectRowIndex = tblFireman.getSelectedRow();
+        if (selectRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please Select One Row to Delete.");
+            return;
+        }
+        
+        int select=JOptionPane.showConfirmDialog(this, "Are you sure to delete it?", "Yes", JOptionPane.YES_NO_OPTION);
+	if(select!=0)return; 
+        
+        DefaultTableModel model = (DefaultTableModel) tblFireman.getModel();
+        
+        //选取fireman角色
+        //Customer customer = ecoSystem.getCustomerDirectory().searchCustomer(Integer.parseInt(model.getValueAt(selectRowIndex, 0).toString()));
+        //ecoSystem.getCustomerDirectory().removeCustomer(customer);
+            
+        JOptionPane.showMessageDialog(this, "This Customer Delete.");
+        //popData();
+    }//GEN-LAST:event_btnDeleteActionPerformed
     
-//    private void backAction(){
-//        userProcessContainer.remove(this);
-//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-//        layout.previous(userProcessContainer);
-//    }
+   private void backAction(){
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

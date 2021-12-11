@@ -5,17 +5,26 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.model.Receiver;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Lenovo
  */
 public class ViewFireman extends javax.swing.JPanel {
 
+    
+    JPanel userProcessContainer;
+    Receiver receiver;
     /**
      * Creates new form ViewFireman
      */
-    public ViewFireman() {
+    public ViewFireman(JPanel userProcessContainer,Receiver receiver) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.receiver = receiver;
     }
 
     /**
@@ -177,6 +186,9 @@ public class ViewFireman extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
 
