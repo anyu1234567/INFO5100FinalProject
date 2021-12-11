@@ -6,6 +6,7 @@
 package com.neu5100.finalproject.ui.FiremanOffice;
 
 import com.neu5100.finalproject.data.Data;
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -20,7 +21,8 @@ public class FiremanWorkArea extends javax.swing.JPanel {
      */
     
     JPanel userProcessContainer;
-    Data data;
+    //Data data;
+    OrganizationAdmin organizationAdmin;
     
     public FiremanWorkArea() {
         initComponents();
@@ -146,7 +148,7 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageFiremanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFiremanActionPerformed
         // TODO add your handling code here:
-        FiremanManage firemanManage =new FiremanManage(userProcessContainer,data);
+        FiremanManage firemanManage =new FiremanManage(userProcessContainer,organizationAdmin);
         userProcessContainer.add("firemanManage",firemanManage);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
