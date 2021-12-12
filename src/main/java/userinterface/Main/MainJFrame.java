@@ -9,6 +9,7 @@ import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
 import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
 import com.neu5100.finalproject.ui.FiremanOffice.FiremanWorkArea;
+import com.neu5100.finalproject.ui.PoliceOffice.PoliceWorkArea;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -33,6 +34,8 @@ public class MainJFrame extends javax.swing.JFrame {
         chooseRole.addItem("911 ops");
         chooseRole.addItem("voluntary");
         chooseRole.addItem("voluntary");
+        chooseRole.addItem("disaster Operator");
+        chooseRole.addItem("Suicide Prevention Operator");
         
         
     }
@@ -96,6 +99,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel3.setText("password");
 
         chooseRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        chooseRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseRoleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,16 +183,32 @@ public class MainJFrame extends javax.swing.JFrame {
         if(role.equals("fireman admin")){
             OrganizationAdmin oa = new OrganizationAdmin(name.getText(), name.getText(),1);
             if(oa.login()){
-                    FiremanWorkArea area =   new FiremanWorkArea(jPanel2, oa);
-                    jPanel2.add(area);
+                    FiremanWorkArea fwarea =   new FiremanWorkArea(jPanel2, oa);
+                    jPanel2.add(fwarea);
                      CardLayout layout = (CardLayout)jPanel2.getLayout();
                     layout.next(jPanel2);                                                           
                 return;
             }
         }
         
+        if(role.equals("Police admin")){
+            OrganizationAdmin oa = new OrganizationAdmin(name.getText(), name.getText(),1);
+            if(oa.login()){
+                    PoliceWorkArea pwarea =   new PoliceWorkArea(jPanel2, oa);
+                    jPanel2.add(pwarea);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        
+        
         System.out.println("login false");
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void chooseRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chooseRoleActionPerformed
 
  
  
