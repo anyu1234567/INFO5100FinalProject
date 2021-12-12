@@ -33,7 +33,7 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         initComponents();
         this.admin =admin;
         this.userProcessContainer = userProcessContainer;
-
+//
         popData();
     }
     
