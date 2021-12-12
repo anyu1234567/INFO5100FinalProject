@@ -590,5 +590,81 @@ public class Data {
         }
     }
 
+    public ResultSet queryEmergency(int emergency_id) {
+        String sql = "SELECT * FROM ecosystem.emergency where eid = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, emergency_id);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAllReceivere() {
+         String  sql ="SELECT * FROM ecosystem.receiver_info";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAllVol() {
+       String  sql ="SELECT * FROM ecosystem.voluntary";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryReceiverByDi(int disasterId) {
+        String  sql ="SELECT * FROM ecosystem.assign_emergency_request where disaster_id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, disasterId);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryDisasterByVol(int vid) {
+        String  sql ="SELECT disaster.disaster_id,disaster_name,disaster_level,allowed_voluntary,max_voluntary FROM ecosystem.disaster,disaster_vol where disaster.disaster_id =disaster_vol.disaster_id and voluntary_id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vid);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean deleDisVol(Disaster d, Voluntary vol) {
+        String sql  = "DELETE FROM `ecosystem`.`disaster_vol` WHERE `voluntary_id` = ? and `disaster_id` = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vol.getVid());
+            stmt.setInt(2, d.getDisaster_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
     
 }

@@ -7,10 +7,11 @@ package com.neu5100.finalproject.ui.PoliceOffice;
 
 import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
-import com.neu5100.finalproject.ui.HospitalOffice.*;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.OperaterWorkarea.OperaterWorkareaJPanel;
 
 /**
  *
@@ -23,14 +24,26 @@ public class AddPolice extends javax.swing.JPanel {
      */
     
     JPanel userProcessContainer;
-    Receiver receiver;
     OrganizationAdmin admin;
     
-    public AddPolice(JPanel userProcessContainer,Receiver receiver, OrganizationAdmin admin) {
+    public AddPolice(JPanel userProcessContainer, OrganizationAdmin admin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.receiver = receiver;
+
         this.admin = admin;
+        jComboBox1.removeAllItems();
+        if(admin.getRole() == 0){
+            jComboBox1.addItem("police");
+        }
+        if(admin.getRole() == 1){
+            jComboBox1.addItem("fireman");
+        }
+        if(admin.getRole() == 2){
+            jComboBox1.addItem("doctor");
+            jComboBox1.addItem("ambulance");
+        }
+        
+        
     }
 
     /**
@@ -51,6 +64,8 @@ public class AddPolice extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +108,10 @@ public class AddPolice extends javax.swing.JPanel {
 
         lblId.setText("ID:");
 
+        jLabel1.setText("role");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,13 +137,15 @@ public class AddPolice extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblUserName)
-                                    .addComponent(lblPassword))
+                                    .addComponent(lblPassword)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
+                        .addGap(242, 242, 242)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -147,15 +168,23 @@ public class AddPolice extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(btnSave)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
          userProcessContainer.remove(this);
+         Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        PolicemanManage dwjp = (PolicemanManage) component;
+        dwjp.popData();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
@@ -174,30 +203,49 @@ public class AddPolice extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if (txtUserName.getText().equals("")||txtPassword.getText().equals("")||txtId.getText().equals(""))
-             JOptionPane.showMessageDialog(this, "Please Complete the Information!!!");
-        
-        else{
-          receiver.setReceiver_id(Integer.parseInt(txtId.getText()));
-          receiver.setReceiver_name(txtUserName.getText());
-          receiver.setReceiver_pw(txtPassword.getText());
-          
-//        if (!ecoSystem.checkIfUserIsUnique(username)) {
-//            JOptionPane.showMessageDialog(this, "UserName Has been existed!Please Input another name!");
-//        }
-//        else{
-            admin.createReceiver(receiver);
-            JOptionPane.showMessageDialog(this, "Add a Policeman");
-            receiver.update();
+        int eid ;
+        String ename;
+        String pw;
+        int role;
+        try{
+            eid = Integer.parseInt(txtId.getText());
+            ename = txtUserName.getText();
+            pw = txtPassword.getText();
+            if(admin.getRole()==0){
+             role = 0;
+             }else if(admin.getRole()==1){
+               role = 1;
+          }else{
+              String se = (String)jComboBox1.getSelectedItem();
+              if(se.equals("doctor")){
+                   role = 2;
+              }else{
+                    role = 3;
+              }
+                  
+              
+          }
+      
 
-          //}
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Please chec name and pw", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+        Receiver re = new Receiver(eid,ename,pw,role);
+        admin.createReceiver(re);
+
+              JOptionPane.showMessageDialog(this, "Add a Receiver success");
+              return;
+          
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblTitle;

@@ -24,6 +24,17 @@ public class Voluntary {
     private String city;
     private String email;
 
+    @Override
+    public String toString() {
+        return "" + vid ;
+    }
+
+    public Voluntary(String vname, String pw) {
+        this.vname = vname;
+        this.pw = pw;
+    }
+
+    
     public Voluntary(int vid, String vname, String pw, int is_individual, String city, String email) {
         this.vid = vid;
         this.vname = vname;
@@ -153,5 +164,32 @@ public class Voluntary {
     public boolean create(){
         Data instance = Data.getInstance();
         return instance.insert(this);
+    }
+
+    public ArrayList<Disaster> queryDisasterByVol() {
+       try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryDisasterByVol(this.vid);
+            ArrayList<Disaster> array = new ArrayList<>();
+            //
+            while(rs.next()){
+                int id = rs.getInt("disaster_id");
+                String name = rs.getString("disaster_name");
+                int disaster_level= rs.getInt("disaster_level");
+                int allowed_voluntary = rs.getInt("allowed_voluntary");
+                int max_voluntary = rs.getInt("max_voluntary");
+                Disaster d = new Disaster(id, name, disaster_level, allowed_voluntary, max_voluntary);
+                array.add(d);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(Voluntary.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean rejectDisaster(Disaster d) {
+        Data instance = Data.getInstance();
+        return instance.deleDisVol(d,this);
     }
 }

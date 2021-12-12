@@ -3,32 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.neu5100.finalproject.ui.PoliceOffice;
+package com.neu5100.finalproject.ui.VoluntaryOffice;
 
 import com.neu5100.finalproject.model.OrganizationAdmin;
-import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
-import com.neu5100.finalproject.ui.FiremanOffice.FiresafetyRequestManage;
-import com.neu5100.finalproject.ui.HospitalOffice.*;
+import com.neu5100.finalproject.ui.FiremanOffice.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import userinterface.OperaterWorkarea.AddEmergencyJpanel;
 
 /**
  *
  * @author Lenovo
  */
-public class PoliceWorkArea extends javax.swing.JPanel {
-   
+public class VoluntaryOfficecWorkArea extends javax.swing.JPanel {
     JPanel userProcessContainer;
     //Data data;
-    OrganizationAdmin organizationAdmin;
+    OrganizationAdmin admin;
     /**
-     * Creates new form HospitalWorkArea
+     * Creates new form FiremanManage
      */
-     public PoliceWorkArea(JPanel jPanel,OrganizationAdmin admin) {
+    public VoluntaryOfficecWorkArea(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
-        this.userProcessContainer = jPanel;
-        this.organizationAdmin = admin;
+        this.admin = organizationAdmin;
+        this.userProcessContainer = userProcessContainer;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,18 +37,30 @@ public class PoliceWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnModify1 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblValue = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnManagePolice = new javax.swing.JButton();
+        btnManageNonprofit = new javax.swing.JButton();
         btnManageRequest = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
+        btnModify1.setText("Modify");
+        btnModify1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModify1ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setAlignmentX(1.0F);
+        jPanel1.setAlignmentY(1.0F);
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 598));
+
         jLabel4.setFont(new java.awt.Font("宋体", 0, 20)); // NOI18N
-        jLabel4.setText("Admin Organization");
+        jLabel4.setText("Voluntary Office");
 
         jLabel1.setText("Hi");
 
@@ -57,19 +68,14 @@ public class PoliceWorkArea extends javax.swing.JPanel {
 
         jLabel3.setText("!!!");
 
-        btnManagePolice.setText("Manage  Receiver");
-        btnManagePolice.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                btnManagePoliceComponentShown(evt);
-            }
-        });
-        btnManagePolice.addActionListener(new java.awt.event.ActionListener() {
+        btnManageNonprofit.setText("Manage Voluntary");
+        btnManageNonprofit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManagePoliceActionPerformed(evt);
+                btnManageNonprofitActionPerformed(evt);
             }
         });
 
-        btnManageRequest.setText("Manage Police Request");
+        btnManageRequest.setText("Manage Request");
         btnManageRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManageRequestActionPerformed(evt);
@@ -82,20 +88,16 @@ public class PoliceWorkArea extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblValue)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnManagePolice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel4)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnManageNonprofit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,22 +108,24 @@ public class PoliceWorkArea extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(lblValue)
                     .addComponent(jLabel3))
-                .addGap(28, 28, 28)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnManagePolice)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnManageNonprofit)
                 .addGap(30, 30, 30)
                 .addComponent(btnManageRequest)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(5000, 598));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGap(0, 712, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,38 +138,40 @@ public class PoliceWorkArea extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnManagePoliceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePoliceActionPerformed
+    private void btnManageNonprofitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNonprofitActionPerformed
         // TODO add your handling code here:
-        PolicemanManage policemanManage =new PolicemanManage(userProcessContainer,organizationAdmin);
-        userProcessContainer.add("policemanManage",policemanManage);
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        VoluntaryManage cejp = new VoluntaryManage(userProcessContainer,this.admin);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnManagePoliceActionPerformed
+        
+    }//GEN-LAST:event_btnManageNonprofitActionPerformed
+
+    private void btnModify1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModify1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModify1ActionPerformed
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
-        PoliceRequestManage plrm =new PoliceRequestManage(userProcessContainer,organizationAdmin);
-        userProcessContainer.add(plrm);
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);  
+        VoluntaryRequestManage cejp = new VoluntaryRequestManage(userProcessContainer,this.admin);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRequestActionPerformed
-
-    private void btnManagePoliceComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnManagePoliceComponentShown
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnManagePoliceComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnManagePolice;
+    private javax.swing.JButton btnManageNonprofit;
     private javax.swing.JButton btnManageRequest;
+    private javax.swing.JButton btnModify1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
