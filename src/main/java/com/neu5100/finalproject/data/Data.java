@@ -521,4 +521,44 @@ public class Data {
             return false;
         }
     }
+
+    public ResultSet queryAllEmergency() {
+        String sql = "select * from emergency";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet selectAllWorkrequest() {
+        try{
+            String sql  = "select * from assign_emergency_request";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet executeQuery = prepareStatement.executeQuery();
+           return executeQuery;
+        }catch(SQLException ex){
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean insert(Receiver re) {
+         String sql = "insert into receiver_info values ( ?,?,?,?)";
+       
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, re.getReceiver_id());
+            stmt.setString(2, re.getReceiver_name());
+            stmt.setString(3, re.getReceiver_pw());
+            stmt.setInt(4, re.getRole());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
 }
