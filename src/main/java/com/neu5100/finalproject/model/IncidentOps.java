@@ -19,11 +19,16 @@ public class IncidentOps {
     private int ops_id;
     private String ops_name;
     private String ops_pw;
+    // role :  911, lifeline ,disaster org 0,1,2
+    private int role;
 
-    public IncidentOps(String ops_name, String ops_pw) {
+    public IncidentOps(String ops_name, String ops_pw, int role) {
         this.ops_name = ops_name;
         this.ops_pw = ops_pw;
+        this.role = role;
     }
+
+   
     
     public IncidentOps(int ops_id, String ops_name, String ops_pw) {
         this.ops_id = ops_id;
@@ -54,6 +59,15 @@ public class IncidentOps {
     public void setOps_pw(String ops_pw) {
         this.ops_pw = ops_pw;
     }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+    
     
     public boolean createEmergency(Emergency e){
         Data instance = Data.getInstance();
@@ -90,7 +104,12 @@ public class IncidentOps {
             Data instance = Data.getInstance();
             ResultSet rs = instance.queryOps(this);
             while(rs.next()){
+               if(this.role != rs.getInt("role")){
+                   System.out.println("the role is not correct");
+                   return false;
+               } 
                this.setOps_id(rs.getInt("ops_id"));
+               
                return true;
             }
             return false;

@@ -6,6 +6,7 @@
 package userinterface.OperaterWorkarea;
 
 import com.neu5100.finalproject.data.Test;
+import com.neu5100.finalproject.model.IncidentOps;
 import javax.swing.JPanel;
 
 /**
@@ -14,15 +15,14 @@ import javax.swing.JPanel;
  */
 public class CreatJPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CreatJPanel
-     */
-    public CreatJPanel() {
-        initComponents();
-    }
+    private JPanel OperatorProcessContainer;
+    private IncidentOps ops;
+    
+    
 
-    CreatJPanel(JPanel OperatorProcessContainer, Test test) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CreatJPanel(JPanel operatorProcessContainer,IncidentOps ops) {
+        this.OperatorProcessContainer = operatorProcessContainer;
+        this.ops = ops;
     }
 
     /**

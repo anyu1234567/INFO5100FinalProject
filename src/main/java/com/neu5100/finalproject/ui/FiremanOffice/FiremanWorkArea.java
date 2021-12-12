@@ -30,8 +30,10 @@ public class FiremanWorkArea extends javax.swing.JPanel {
     AssignWorkRequest assignWorkRequest;
     Emergency emergency;
     
-    public FiremanWorkArea() {
+    public FiremanWorkArea(JPanel jPanel,OrganizationAdmin admin) {
         initComponents();
+        this.userProcessContainer = jPanel;
+        this.organizationAdmin = admin;
     }
 
     /**
@@ -52,7 +54,6 @@ public class FiremanWorkArea extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         btnManageFireman = new javax.swing.JButton();
         btnManageRequest = new javax.swing.JButton();
-        btnlogout = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         btnModify1.setText("Modify");
@@ -89,29 +90,22 @@ public class FiremanWorkArea extends javax.swing.JPanel {
             }
         });
 
-        btnlogout.setText("Log out");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblValue)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
-                            .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnManageFireman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(btnlogout)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addComponent(btnManageRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageFireman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,9 +122,7 @@ public class FiremanWorkArea extends javax.swing.JPanel {
                 .addComponent(btnManageFireman)
                 .addGap(37, 37, 37)
                 .addComponent(btnManageRequest)
-                .addGap(35, 35, 35)
-                .addComponent(btnlogout)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -164,7 +156,7 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageFiremanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFiremanActionPerformed
         // TODO add your handling code here:
-        FiremanManage firemanManage =new FiremanManage(userProcessContainer,organizationAdmin,receiver);
+        FiremanManage firemanManage =new FiremanManage(userProcessContainer,organizationAdmin);
         userProcessContainer.add("firemanManage",firemanManage);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -172,10 +164,10 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
-        FiresafetyRequestManage fsrm =new FiresafetyRequestManage(userProcessContainer,assignWorkRequest,emergency,receiver);
+        FiresafetyRequestManage fsrm =new FiresafetyRequestManage(userProcessContainer,this.organizationAdmin);
         userProcessContainer.add("firemanManage",fsrm);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        layout.next(userProcessContainer);                            
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
     private void btnModify1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModify1ActionPerformed
@@ -187,7 +179,6 @@ public class FiremanWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton btnManageFireman;
     private javax.swing.JButton btnManageRequest;
     private javax.swing.JButton btnModify1;
-    private javax.swing.JButton btnlogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

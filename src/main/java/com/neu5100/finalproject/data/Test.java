@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class Test {
     public static void main(String[] args)  {
         Data instance = Data.getInstance();
-        IncidentOps opser = new IncidentOps("testname", "1");
-        System.out.println(opser.login());
+        // opser = new IncidentOps("testname", "1");
+       // System.out.println(opser.login());
         
     }
 }

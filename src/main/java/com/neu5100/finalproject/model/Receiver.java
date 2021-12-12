@@ -35,6 +35,11 @@ public class Receiver {
         this.role = role;
     }
 
+    public Receiver(String receiver_name, String receiver_pw) {
+        this.receiver_name = receiver_name;
+        this.receiver_pw = receiver_pw;
+    }
+    
     public int getReceiver_id() {
         return receiver_id;
     }

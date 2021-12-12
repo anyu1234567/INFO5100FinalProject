@@ -6,6 +6,7 @@
 package userinterface.OperaterWorkarea;
 
 import com.neu5100.finalproject.data.Test;
+import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -19,12 +20,14 @@ import javax.swing.table.DefaultTableModel;
 public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
      private JPanel OperatorProcessContainer;
-     private Test test; 
+     private IncidentOps ops;
     /**
      * Creates new form OperaterWorkareaJPanel
      */
-    public OperaterWorkareaJPanel() {
+    public OperaterWorkareaJPanel(JPanel user ,IncidentOps incidentOps ) {
         initComponents();
+        this.OperatorProcessContainer = user;
+        this.ops = incidentOps;
     }
 
     /**
@@ -127,7 +130,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-       CreatJPanel createJPanel  = new  CreatJPanel (OperatorProcessContainer,test);
+       CreatJPanel createJPanel  = new  CreatJPanel (OperatorProcessContainer,ops);
          Component creatJPanel = null;
        OperatorProcessContainer.add("CreatJPanel",creatJPanel);
        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
@@ -148,7 +151,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnProcess1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcess1ActionPerformed
         // TODO add your handling code here:
-     ProcessJPanel processJPanel = new ProcessJPanel(OperatorProcessContainer,test);
+     ProcessJPanel processJPanel = new ProcessJPanel(OperatorProcessContainer,ops);
      OperatorProcessContainer.add("ProcessJPanel",processJPanel);
      CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
      layout.next(OperatorProcessContainer);
@@ -159,34 +162,34 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         
-         int selectedRowIndex = tableOrderList.getSelectedRow();
-        if ( selectedRowIndex < 0){
-            JOptionPane.showMessageDialog(this, "Please select an order first.");
-            return;
-        }       
+//         int selectedRowIndex = tableOrderList.getSelectedRow();
+//        if ( selectedRowIndex < 0){
+//            JOptionPane.showMessageDialog(this, "Please select an order first.");
+//            return;
+//        }       
         
-        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
-        
-       ViewEventJPanel viewEventJPanel = new ViewEventJPanel(OperatorProcessContainer, (OrderRequest)model.getValueAt(selectedRowIndex, 0));
-        userProcessContainer.add("OrderViewJPanel",orderViewJPanel);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+//        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
+//        
+//       ViewEventJPanel viewEventJPanel = new ViewEventJPanel(OperatorProcessContainer, (OrderRequest)model.getValueAt(selectedRowIndex, 0));
+//        userProcessContainer.add("OrderViewJPanel",orderViewJPanel);
+//        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewActionPerformed
 
     
      public void populateOrderTable(){
-        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
-        model.setRowCount(0);
-        for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
-            Object row[] = new Object[5];
-            System.out.println(workRequest);
-            row[0] = workRequest;
-            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
-            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
-            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
-            row[3] = workRequest.getStatus();
-            row[4] = workRequest.getComment();
-            model.addRow(row);
+//        DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
+//        model.setRowCount(0);
+//        for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
+//            Object row[] = new Object[5];
+//            System.out.println(workRequest);
+//            row[0] = workRequest;
+//            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
+//            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
+//            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
+//            row[3] = workRequest.getStatus();
+//            row[4] = workRequest.getComment();
+//            model.addRow(row);
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

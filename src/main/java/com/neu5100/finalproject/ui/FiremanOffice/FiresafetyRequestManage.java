@@ -29,13 +29,11 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
     Emergency emergency;
     OrganizationAdmin admin;
     
-    public FiresafetyRequestManage(JPanel userProcessContainer,AssignWorkRequest assignWorkRequest,Emergency emergency,Receiver receiver,OrganizationAdmin admin) {
+    public FiresafetyRequestManage(JPanel userProcessContainer,OrganizationAdmin admin) {
         initComponents();
         this.admin =admin;
         this.userProcessContainer = userProcessContainer;
-        this.assignWorkRequest = assignWorkRequest;
-        this.emergency = emergency;
-        this.receiver = receiver;
+
         popData();
     }
     
@@ -46,10 +44,10 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         
         for (AssignWorkRequest assignWorkRequest :admin.queryWorkRequestByRole() ) {
                 Object row[] = new Object[4];
-                row[0] = customer.getCustomerAccount().getEmployee().getId();
-                row[1] = customer.getCustomerAccount().getUsername();
-                row[2] = customer.getCustomerAccount().getEmployee().getName();
-                row[3] = customer.getAddress();
+//                row[0] = customer.getCustomerAccount().getEmployee().getId();
+//                row[1] = customer.getCustomerAccount().getUsername();
+//                row[2] = customer.getCustomerAccount().getEmployee().getName();
+//                row[3] = customer.getAddress();
                 model.addRow(row);
         }
     }

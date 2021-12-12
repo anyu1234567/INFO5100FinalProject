@@ -13,13 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author An
  */
 public class OrganizationAdmin {
     private int admin_id;
     private String admin_name;
     private String admin_pw;
+    // role : 0 ,1,2,3  police ,hosptial fire , voluntary
     private int role;
 
     public OrganizationAdmin(int admin_id, String admin_name, String admin_pw, int role) {
@@ -28,6 +29,15 @@ public class OrganizationAdmin {
         this.admin_pw = admin_pw;
         this.role = role;
     }
+
+    public OrganizationAdmin(String admin_name, String admin_pw, int role) {
+        this.admin_name = admin_name;
+        this.admin_pw = admin_pw;
+        this.role = role;
+    }
+
+    
+    
 
     public int getAdmin_id() {
         return admin_id;

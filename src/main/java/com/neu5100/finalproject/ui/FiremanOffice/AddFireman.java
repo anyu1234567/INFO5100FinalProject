@@ -22,7 +22,7 @@ public class AddFireman extends javax.swing.JPanel {
     JPanel userProcessContainer;
     Receiver receiver;
     
-    public AddFireman(JPanel userProcessContainer,Receiver receiver) {
+    public AddFireman(JPanel userProcessContainer) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.receiver = receiver;

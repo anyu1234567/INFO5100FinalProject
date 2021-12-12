@@ -5,7 +5,7 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
-import com.neu5100.finalproject.data.Data;
+
 import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
 import java.awt.CardLayout;
@@ -25,24 +25,27 @@ public class FiremanManage extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     OrganizationAdmin organizationAdmin;
-    Receiver receiver;
     
-    public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin,Receiver receiver) {
+    
+    public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organizationAdmin = organizationAdmin;
-        this.receiver = receiver;
+       
         popData();
     }
   
     public void popData() {
 
+       int rowCount = tblFireman.getRowCount();
         DefaultTableModel model = (DefaultTableModel) tblFireman.getModel();
-        model.setRowCount(0);
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
         
-        for (Receiver receriver : organizationAdmin.getReceiver()) {
+        for (Receiver receiver : organizationAdmin.getReceiver()) {
                 Object row[] = new Object[4];
-                row[0] = receriver;
+                row[0] = receiver;
                 row[1] = receiver.getReceiver_name();
                 row[2] = receiver.getReceiver_pw();
                 //row[3] = //分组？
@@ -133,7 +136,7 @@ public class FiremanManage extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnBack)
@@ -144,7 +147,7 @@ public class FiremanManage extends javax.swing.JPanel {
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                         .addGap(19, 19, 19))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +203,7 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        AddFireman addFirman =new AddFireman(userProcessContainer,receiver);
+        AddFireman addFirman =new AddFireman(userProcessContainer);
         userProcessContainer.add("addFirman",addFirman);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -208,6 +211,12 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
+        int row = tblFireman.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Receiver receiver = (Receiver)tblFireman.getValueAt(row, 0);
         ViewFireman viewFireman =new ViewFireman(userProcessContainer,receiver);
         userProcessContainer.add("viewFireman",viewFireman);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
