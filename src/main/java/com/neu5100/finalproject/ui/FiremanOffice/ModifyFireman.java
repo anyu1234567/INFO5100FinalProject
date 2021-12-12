@@ -199,6 +199,7 @@ public class ModifyFireman extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Modify a fireman");
         //SuccessSave();
         //popData();
+        receiver.update();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed

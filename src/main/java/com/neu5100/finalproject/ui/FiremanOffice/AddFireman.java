@@ -24,11 +24,13 @@ public class AddFireman extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     Receiver receiver;
+    OrganizationAdmin admin;
     
-    public AddFireman(JPanel userProcessContainer,Receiver receiver) {
+    public AddFireman(JPanel userProcessContainer,Receiver receiver, OrganizationAdmin admin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.receiver = receiver;
+        this.admin = admin;
     }
 
     /**
@@ -177,9 +179,9 @@ public class AddFireman extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(this, "Please Complete the Information!!!");
         
         else{
-          int id = Integer.parseInt(txtId.getText());
-          String username = txtUserName.getText();
-          String password = txtPassword.getText();
+//          int id = Integer.parseInt(txtId.getText());
+//          String username = txtUserName.getText();
+//          String password = txtPassword.getText();
           
           //Receiver receiver = new Receiver();
        
@@ -187,9 +189,9 @@ public class AddFireman extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "UserName Has been existed!Please Input another name!");
 //          }
 //          else{
-            //ecoSystem.addNewCustomer(username, password, name, address);
-            //OrganizationAdmin.addNewRole(username,id,password);
+            admin.createReceiver(receiver);
             JOptionPane.showMessageDialog(this, "Add a Fireman");
+            receiver.update();
             //firemanManage.popData();
           //}
         }

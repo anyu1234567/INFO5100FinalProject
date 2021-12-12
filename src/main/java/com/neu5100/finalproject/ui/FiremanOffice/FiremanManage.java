@@ -207,7 +207,7 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        AddFireman addFireman =new AddFireman(userProcessContainer,receiver);
+        AddFireman addFireman =new AddFireman(userProcessContainer,receiver,organizationAdmin);
         userProcessContainer.add("addFireman",addFireman);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
