@@ -150,4 +150,8 @@ public class Voluntary {
         Data instance = Data.getInstance();
         return instance.updateVol(this);
     }
+    public boolean create(){
+        Data instance = Data.getInstance();
+        return instance.insert(this);
+    }
 }

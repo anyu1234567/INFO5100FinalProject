@@ -13,7 +13,9 @@ import com.neu5100.finalproject.ui.PoliceOffice.PoliceWorkArea;
 import com.neu5100.finalproject.ui.VoluntaryOffice.VoluntaryWorkArea;
 import java.awt.CardLayout;
 import userinterface.OperaterWorkarea.OperaterWorkareaJPanel;
+import userinterface.SystemadminWorkarea.SystemadminWorkareaJpanel;
 import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
+import userinterface.volunteer.register.VolunteerRegisterJpanel;
 
 /**
  *
@@ -38,7 +40,7 @@ public class MainJFrame extends javax.swing.JFrame {
         chooseRole.addItem("voluntary");
         chooseRole.addItem("disaster Operator");
         chooseRole.addItem("Suicide Prevention Operator");
-        
+        chooseRole.addItem("System admin");
         
     }
 
@@ -173,6 +175,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
+        VolunteerRegisterJpanel vr =   new VolunteerRegisterJpanel(jPanel2);
+        jPanel2.add(vr);
+        CardLayout layout = (CardLayout)jPanel2.getLayout();
+        layout.next(jPanel2);   
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
@@ -213,6 +219,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 return;
             }
         }
+        if(role.equals("Suicide Prevention Operator")){
+            IncidentOps ops = new IncidentOps(name.getText(),pw.getText(),1);
+            if(ops.login()){
+                    OperaterWorkareaJPanel owjp = new OperaterWorkareaJPanel(jPanel2,ops);
+                    jPanel2.add(owjp);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
         if(role.equals("hosptial admin")){
              OrganizationAdmin oa = new OrganizationAdmin(name.getText(), pw.getText(),2);
             if(oa.login()){
@@ -237,6 +253,16 @@ public class MainJFrame extends javax.swing.JFrame {
              IncidentOps ops = new IncidentOps(name.getText(), pw.getText(), 2);
             if(ops.login()){
                    DisasterWorkareaJPanel dwjp = new DisasterWorkareaJPanel(jPanel2, ops);
+                    jPanel2.add(dwjp);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        if(role.equals("System admin")){
+              OrganizationAdmin oa = new OrganizationAdmin(name.getText(), pw.getText(),4);
+            if(oa.login()){
+                   SystemadminWorkareaJpanel dwjp = new SystemadminWorkareaJpanel(jPanel2, oa);
                     jPanel2.add(dwjp);
                      CardLayout layout = (CardLayout)jPanel2.getLayout();
                     layout.next(jPanel2);                                                           

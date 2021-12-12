@@ -30,6 +30,11 @@ public class OrganizationAdmin {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "" + admin_id;
+    }
+
     public OrganizationAdmin(String admin_name, String admin_pw, int role) {
         this.admin_name = admin_name;
         this.admin_pw = admin_pw;
@@ -238,5 +243,29 @@ public class OrganizationAdmin {
         Data instance = Data.getInstance();
         return instance.insert(re);
     }
-    
+    public ArrayList<OrganizationAdmin> queryAllAdmin(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryAdmin();
+            ArrayList<OrganizationAdmin> array = new ArrayList<>();
+            //receiver_info.receiver_id,receiver_name,receiver_pw,role
+            while(rs.next()){
+                int admin_id = rs.getInt("admin_id");
+                String admin_name= rs.getString("admin_name");
+                String admin_pw = rs.getString("admin_pw");
+                int role = rs.getInt("role");
+                OrganizationAdmin admin = new OrganizationAdmin(admin_id,admin_name,admin_pw,role);
+                array.add(admin);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean createAdmin(OrganizationAdmin ad) {
+        Data instance = Data.getInstance();
+        return instance.insert(ad);
+    }
 }

@@ -561,4 +561,34 @@ public class Data {
              return false;
         }
     }
+
+    public ResultSet queryAdmin() {
+       String sql = "select * from org_admin";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean insert(OrganizationAdmin ad) {
+       String sql = "insert into org_admin values ( ?,?,?,?)";
+       
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ad.getAdmin_id());
+            stmt.setString(2, ad.getAdmin_name());
+            stmt.setString(3, ad.getAdmin_pw());
+            stmt.setInt(4, ad.getRole());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    
 }
