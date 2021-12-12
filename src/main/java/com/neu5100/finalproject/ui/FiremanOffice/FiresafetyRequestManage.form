@@ -179,16 +179,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Accept Request"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceptActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAssign">
       <Properties>
         <Property name="text" type="java.lang.String" value="Assign Request"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAssignActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnReject">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reject Request"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRejectActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbFireman">
       <Properties>
