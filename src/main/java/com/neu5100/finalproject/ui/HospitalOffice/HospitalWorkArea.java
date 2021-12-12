@@ -8,6 +8,8 @@ package com.neu5100.finalproject.ui.HospitalOffice;
 import com.neu5100.finalproject.model.AssignWorkRequest;
 import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
+import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -149,7 +151,11 @@ public class HospitalWorkArea extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDoctorActionPerformed
-        // TODO add your handling code here:
+//        // TODO add your handling code here:
+//        DoctorManage doctorManage =new DoctorManage(userProcessContainer,organizationAdmin);
+//        userProcessContainer.add("doctorManage",doctorManage);
+//        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageDoctorActionPerformed
 
     private void btnManageAmbulanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAmbulanceActionPerformed

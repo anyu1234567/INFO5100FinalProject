@@ -5,7 +5,11 @@
  */
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,10 +20,37 @@ public class VoluntaryManage extends javax.swing.JPanel {
     /**
      * Creates new form FiremanManage
      */
-    public VoluntaryManage() {
+    
+    JPanel userProcessContainer;
+    OrganizationAdmin organizationAdmin;
+    Receiver receiver;
+    
+    public VoluntaryManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organizationAdmin = organizationAdmin;
+        
+        popData();
     }
 
+    public void popData() {
+
+       int rowCount = tblVoluntary.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblVoluntary.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+//        for (Receiver receiver : organizationAdmin.getReceiver()) {
+//                Object row[] = new Object[4];
+//                row[0] = receiver;
+//                row[1] = receiver.getReceiver_name();
+//                row[2] = receiver.getReceiver_pw();
+//                row[3] = ;
+//                model.addRow(row);
+//        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

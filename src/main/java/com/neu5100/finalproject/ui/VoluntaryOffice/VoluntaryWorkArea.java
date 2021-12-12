@@ -6,7 +6,9 @@
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
 import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Voluntary;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -17,6 +19,8 @@ public class VoluntaryWorkArea extends javax.swing.JPanel {
     JPanel userProcessContainer;
     //Data data;
     OrganizationAdmin organizationAdmin;
+    Voluntary voluntary;
+    
     /**
      * Creates new form FiremanManage
      */
@@ -146,6 +150,10 @@ public class VoluntaryWorkArea extends javax.swing.JPanel {
 
     private void btnManageNonprofitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNonprofitActionPerformed
         // TODO add your handling code here:
+        VoluntaryManage voluntaryManage =new VoluntaryManage(userProcessContainer,organizationAdmin);
+        userProcessContainer.add("voluntaryManage",voluntaryManage);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageNonprofitActionPerformed
 
     private void btnModify1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModify1ActionPerformed
@@ -153,7 +161,11 @@ public class VoluntaryWorkArea extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModify1ActionPerformed
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
-        // TODO add your handling code here:
+//        // TODO add your handling code here:
+//        VoluntaryRequestManage vlrm =new VoluntaryRequestManage(userProcessContainer,this.organizationAdmin);
+//        userProcessContainer.add("voluntaryRequestManage",vlrm);
+//        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);   
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
 
