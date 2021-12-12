@@ -20,6 +20,13 @@ public class Emergency {
     private  int zipcode;
     private int opsid;
 
+    @Override
+    public String toString() {
+        return "" + eid ;
+    }
+    
+    
+
     public Emergency(int eid, String ename, int popid, String situation, String time, int zipcode, int opsid) {
         this.eid = eid;
         this.ename = ename;

@@ -85,13 +85,13 @@ public class FiremanManage extends javax.swing.JPanel {
 
         tblFireman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Password", "Group Number"
+                "ID", "UserName", "Password"
             }
         ));
         jScrollPane1.setViewportView(tblFireman);
@@ -190,6 +190,25 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+        
+        String searchtext = txtSearch.getText();
+        
+        if(searchtext == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblFireman.getModel();
+        model.setRowCount(0);
+
+        for (Receiver receiver : organizationAdmin.getReceiver()) {
+            if(searchtext.equals(String.valueOf(receiver.getReceiver_id())) || searchtext.equals(receiver.getReceiver_name())){
+                Object row[] = new Object[3];
+                row[0] = receiver;
+                row[1] = receiver.getReceiver_name();
+                row[2] = receiver.getReceiver_pw();
+                model.addRow(row);
+            }
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
@@ -225,7 +244,7 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-         int selectRowIndex = tblFireman.getSelectedRow();
+        int selectRowIndex = tblFireman.getSelectedRow();
         if (selectRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please Select One Row to Delete.");
             return;
@@ -249,7 +268,7 @@ public class FiremanManage extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;

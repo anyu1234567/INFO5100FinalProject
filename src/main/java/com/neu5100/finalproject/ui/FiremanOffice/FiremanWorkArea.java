@@ -5,7 +5,6 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
-import com.neu5100.finalproject.data.Data;
 import com.neu5100.finalproject.model.AssignWorkRequest;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.OrganizationAdmin;
