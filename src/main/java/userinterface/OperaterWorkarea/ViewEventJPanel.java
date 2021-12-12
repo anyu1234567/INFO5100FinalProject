@@ -7,6 +7,8 @@ package userinterface.OperaterWorkarea;
 
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 
 /**
@@ -14,7 +16,7 @@ import javax.swing.JPanel;
  * @author chenghongmei
  */
 public class ViewEventJPanel extends javax.swing.JPanel {
-    private JPanel OperatorProcessContainer;
+    private JPanel userProcessContainer;
     private IncidentOps ops;
     private int ops_id;
     private Emergency e;
@@ -24,7 +26,7 @@ public class ViewEventJPanel extends javax.swing.JPanel {
      */
     public ViewEventJPanel(JPanel operatorProcessContainer,Emergency e) {
         initComponents();
-        this.OperatorProcessContainer = operatorProcessContainer;
+        this.userProcessContainer = operatorProcessContainer;
         this.ops_id = ops_id;
         this.e = e;
         txteid.setText(String.valueOf(e.getEid()));
@@ -186,6 +188,15 @@ public class ViewEventJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        OperaterWorkareaJPanel dwjp = (OperaterWorkareaJPanel) component;
+        dwjp.refreshEmergency();
+        dwjp.refreshWorkRequest();
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txttimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimeActionPerformed
