@@ -25,6 +25,7 @@ public class FiremanManage extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     OrganizationAdmin organizationAdmin;
+    Receiver receiver;
     
     
     public FiremanManage(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
@@ -68,9 +69,8 @@ public class FiremanManage extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFireman = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
-        btnView = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("宋体", 0, 24)); // NOI18N
@@ -103,10 +103,10 @@ public class FiremanManage extends javax.swing.JPanel {
             }
         });
 
-        btnView.setText("View");
-        btnView.addActionListener(new java.awt.event.ActionListener() {
+        btnModify.setText("Modify");
+        btnModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
+                btnModifyActionPerformed(evt);
             }
         });
 
@@ -114,13 +114,6 @@ public class FiremanManage extends javax.swing.JPanel {
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnModify.setText("Modify");
-        btnModify.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModifyActionPerformed(evt);
             }
         });
 
@@ -150,20 +143,17 @@ public class FiremanManage extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                         .addGap(19, 19, 19))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jLabel2)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(216, 216, 216)
+                .addComponent(jLabel2)
+                .addGap(0, 216, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +172,6 @@ public class FiremanManage extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnModify)
-                    .addComponent(btnView)
                     .addComponent(btnAdd))
                 .addContainerGap(262, Short.MAX_VALUE))
         );
@@ -211,10 +200,6 @@ public class FiremanManage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModifyActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         backAction();
@@ -222,13 +207,13 @@ public class FiremanManage extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        AddFireman addFirman =new AddFireman(userProcessContainer);
-        userProcessContainer.add("addFirman",addFirman);
+        AddFireman addFireman =new AddFireman(userProcessContainer,receiver);
+        userProcessContainer.add("addFireman",addFireman);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+    private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         // TODO add your handling code here:
         int row = tblFireman.getSelectedRow();
         if(row<0){
@@ -236,11 +221,11 @@ public class FiremanManage extends javax.swing.JPanel {
             return;
         }
         Receiver receiver = (Receiver)tblFireman.getValueAt(row, 0);
-        ViewFireman viewFireman =new ViewFireman(userProcessContainer,receiver);
-        userProcessContainer.add("viewFireman",viewFireman);
+        ModifyFireman modifyFireman =new ModifyFireman(userProcessContainer,receiver);
+        userProcessContainer.add("viewFireman",modifyFireman);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnViewActionPerformed
+    }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
@@ -259,8 +244,8 @@ public class FiremanManage extends javax.swing.JPanel {
         //Customer customer = ecoSystem.getCustomerDirectory().searchCustomer(Integer.parseInt(model.getValueAt(selectRowIndex, 0).toString()));
         //ecoSystem.getCustomerDirectory().removeCustomer(customer);
             
-        JOptionPane.showMessageDialog(this, "This Customer Delete.");
-        //popData();
+        JOptionPane.showMessageDialog(this, "This Role Delete.");
+        popData();
     }//GEN-LAST:event_btnDeleteActionPerformed
     
    private void backAction(){
@@ -275,7 +260,6 @@ public class FiremanManage extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFireman;

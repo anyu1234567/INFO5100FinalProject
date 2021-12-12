@@ -5,10 +5,12 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,7 +25,7 @@ public class AddFireman extends javax.swing.JPanel {
     JPanel userProcessContainer;
     Receiver receiver;
     
-    public AddFireman(JPanel userProcessContainer) {
+    public AddFireman(JPanel userProcessContainer,Receiver receiver) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.receiver = receiver;
@@ -171,18 +173,26 @@ public class AddFireman extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if (txtUserName.getText().equals("")||txtPassword.getText().equals("")||txtId.getText().equals(""))
+             JOptionPane.showMessageDialog(this, "Please Complete the Information!!!");
         
-        int id = Integer.parseInt(txtId.getText());
-        String name = txtUserName.getText();
-        String pw = txtPassword.getText();
-
-        //Receiver receivers = ;
-
-//        dishes.setDishName(name);
-//        dishes.setDishPrice(price);
-
-        JOptionPane.showMessageDialog(this, "NEW Dish Add!");
-        //SuccessSave();
+        else{
+          int id = Integer.parseInt(txtId.getText());
+          String username = txtUserName.getText();
+          String password = txtPassword.getText();
+          
+          //Receiver receiver = new Receiver();
+       
+//          if (!ecoSystem.checkIfUserIsUnique(username)) {
+//            JOptionPane.showMessageDialog(this, "UserName Has been existed!Please Input another name!");
+//          }
+//          else{
+            //ecoSystem.addNewCustomer(username, password, name, address);
+            //OrganizationAdmin.addNewRole(username,id,password);
+            JOptionPane.showMessageDialog(this, "Add a Fireman");
+            //firemanManage.popData();
+          //}
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
