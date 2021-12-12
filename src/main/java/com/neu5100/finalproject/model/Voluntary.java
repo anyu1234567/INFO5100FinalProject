@@ -24,6 +24,17 @@ public class Voluntary {
     private String city;
     private String email;
 
+    @Override
+    public String toString() {
+        return "" + vid ;
+    }
+
+    public Voluntary(String vname, String pw) {
+        this.vname = vname;
+        this.pw = pw;
+    }
+
+    
     public Voluntary(int vid, String vname, String pw, int is_individual, String city, String email) {
         this.vid = vid;
         this.vname = vname;
@@ -84,7 +95,10 @@ public class Voluntary {
         this.email = email;
     }
     
-    
+    /**
+     * 查询可以注册的disaster
+     * @return 
+     */
     public  ArrayList<Disaster> queryDisaster(){
         try {
             Data instance = Data.getInstance();
@@ -106,9 +120,76 @@ public class Voluntary {
             return null;
         }
     }
+    /**
+     * 通过disaster id 选择disaster
+     * @param disaster_id
+     * @return 
+     */
     public boolean chooseDisaster(int disaster_id){
         Data instance = Data.getInstance();
         return instance.insert(disaster_id,this);
         
+    }
+    /**
+     * 注册voluntary—— 将类中的信息增加到数据库中
+     * @return 
+     */
+    public boolean registerVol(){
+        Data instance = Data.getInstance();
+        return instance.insert(this);
+    }
+    public boolean login(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs= instance.queryVol(this);
+            while(rs.next()){
+               
+               this.vid = rs.getInt("vid");
+               this.is_individual = rs.getInt("is_individual");
+               this.city = rs.getString("city");
+               this.email = rs.getString("email");
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return instance.updateVol(this);
+    }
+    public boolean create(){
+        Data instance = Data.getInstance();
+        return instance.insert(this);
+    }
+
+    public ArrayList<Disaster> queryDisasterByVol() {
+       try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryDisasterByVol(this.vid);
+            ArrayList<Disaster> array = new ArrayList<>();
+            //
+            while(rs.next()){
+                int id = rs.getInt("disaster_id");
+                String name = rs.getString("disaster_name");
+                int disaster_level= rs.getInt("disaster_level");
+                int allowed_voluntary = rs.getInt("allowed_voluntary");
+                int max_voluntary = rs.getInt("max_voluntary");
+                Disaster d = new Disaster(id, name, disaster_level, allowed_voluntary, max_voluntary);
+                array.add(d);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(Voluntary.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean rejectDisaster(Disaster d) {
+        Data instance = Data.getInstance();
+        return instance.deleDisVol(d,this);
     }
 }

@@ -5,19 +5,27 @@
  */
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import userinterface.OperaterWorkarea.AddEmergencyJpanel;
 
 /**
  *
  * @author Lenovo
  */
-public class VoluntaryWorkArea extends javax.swing.JPanel {
-
+public class VoluntaryOfficecWorkArea extends javax.swing.JPanel {
+    JPanel userProcessContainer;
+    //Data data;
+    OrganizationAdmin admin;
     /**
      * Creates new form FiremanManage
      */
-    public VoluntaryWorkArea() {
+    public VoluntaryOfficecWorkArea(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
+        this.admin = organizationAdmin;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**
@@ -140,6 +148,11 @@ public class VoluntaryWorkArea extends javax.swing.JPanel {
 
     private void btnManageNonprofitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNonprofitActionPerformed
         // TODO add your handling code here:
+        VoluntaryManage cejp = new VoluntaryManage(userProcessContainer,this.admin);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
     }//GEN-LAST:event_btnManageNonprofitActionPerformed
 
     private void btnModify1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModify1ActionPerformed
@@ -148,6 +161,10 @@ public class VoluntaryWorkArea extends javax.swing.JPanel {
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
+        VoluntaryRequestManage cejp = new VoluntaryRequestManage(userProcessContainer,this.admin);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
 

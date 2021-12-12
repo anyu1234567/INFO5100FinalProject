@@ -5,6 +5,8 @@
  */
 package com.neu5100.finalproject.model;
 
+import com.neu5100.finalproject.data.Data;
+
 /**
  *
  * @author An
@@ -67,5 +69,8 @@ public class Population {
     }
 
     
-    
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return instance.updatePop(this);
+    }
 }

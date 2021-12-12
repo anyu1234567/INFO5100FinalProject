@@ -5,7 +5,10 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
-import com.neu5100.finalproject.data.Data;
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Emergency;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -20,10 +23,15 @@ public class FiremanWorkArea extends javax.swing.JPanel {
      */
     
     JPanel userProcessContainer;
-    Data data;
+    //Data data;
+    OrganizationAdmin organizationAdmin;
+    Receiver receiver;
+    AssignWorkRequest assignWorkRequest;
     
-    public FiremanWorkArea() {
+    public FiremanWorkArea(JPanel jPanel,OrganizationAdmin admin) {
         initComponents();
+        this.userProcessContainer = jPanel;
+        this.organizationAdmin = admin;
     }
 
     /**
@@ -112,7 +120,7 @@ public class FiremanWorkArea extends javax.swing.JPanel {
                 .addComponent(btnManageFireman)
                 .addGap(37, 37, 37)
                 .addComponent(btnManageRequest)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -146,7 +154,7 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageFiremanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageFiremanActionPerformed
         // TODO add your handling code here:
-        FiremanManage firemanManage =new FiremanManage(userProcessContainer,data);
+        FiremanManage firemanManage =new FiremanManage(userProcessContainer,organizationAdmin);
         userProcessContainer.add("firemanManage",firemanManage);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -154,6 +162,10 @@ public class FiremanWorkArea extends javax.swing.JPanel {
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
+        FiresafetyRequestManage fsrm =new FiresafetyRequestManage(userProcessContainer,this.organizationAdmin);
+        userProcessContainer.add("firemanManage",fsrm);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);                            
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
     private void btnModify1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModify1ActionPerformed

@@ -5,6 +5,8 @@
  */
 package com.neu5100.finalproject.model;
 
+import com.neu5100.finalproject.data.Data;
+
 /**
  *
  * @author An
@@ -17,6 +19,12 @@ public class Emergency {
     private String time;
     private  int zipcode;
     private int opsid;
+
+    @Override
+    public String toString() {
+        return "" + eid;
+    }
+    
 
     public Emergency(int eid, String ename, int popid, String situation, String time, int zipcode, int opsid) {
         this.eid = eid;
@@ -83,6 +91,12 @@ public class Emergency {
 
     public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
+    }/**
+     * update emergency
+     * @return 
+     */
+    public boolean update(){
+        Data instance = Data.getInstance();
+        return  instance.updateEm(this);
     }
-    
 }

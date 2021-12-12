@@ -5,19 +5,33 @@
  */
 package userinterface.SystemadminWorkarea;
 
+import com.neu5100.finalproject.model.Disaster;
+import com.neu5100.finalproject.model.Emergency;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import java.awt.CardLayout;
+import java.awt.Graphics;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import userinterface.OperaterWorkarea.AddEmergencyJpanel;
+import userinterface.OperaterWorkarea.ProcessJPanel;
 
 /**
  *
  * @author chenghongmei
  */
 public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
-
+    private JPanel userProcessContainer;
+    private OrganizationAdmin org;
     /**
      * Creates new form NewJPanel
      */
-    public SystemadminWorkareaJpanel() {
+    public SystemadminWorkareaJpanel(JPanel userProcessContainer, OrganizationAdmin org) {
         initComponents();
+        this.userProcessContainer =userProcessContainer;
+        this.org = org;
+        refreshAdmin();
     }
 
     /**
@@ -36,10 +50,12 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblSelectedNode = new javax.swing.JLabel();
-        btnManagePoliceAdmin = new javax.swing.JButton();
-        btnManageHospitalAdmin = new javax.swing.JButton();
-        btnManageDeliveryman = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAdmin = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -69,35 +85,42 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
         lblSelectedNode.setFont(new java.awt.Font("宋体", 0, 14)); // NOI18N
         lblSelectedNode.setText("<View_selected_node>");
 
-        btnManagePoliceAdmin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnManagePoliceAdmin.setForeground(new java.awt.Color(255, 51, 51));
-        btnManagePoliceAdmin.setText("Manage Police Admin");
-        btnManagePoliceAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManagePoliceAdminActionPerformed(evt);
-            }
-        });
-
-        btnManageHospitalAdmin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnManageHospitalAdmin.setForeground(new java.awt.Color(102, 102, 102));
-        btnManageHospitalAdmin.setText("Manage Hospital Admin ");
-        btnManageHospitalAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageHospitalAdminActionPerformed(evt);
-            }
-        });
-
-        btnManageDeliveryman.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnManageDeliveryman.setForeground(new java.awt.Color(0, 102, 255));
-        btnManageDeliveryman.setText("Manage Firesafty Admin");
-        btnManageDeliveryman.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageDeliverymanActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("Admin Work Area");
+
+        tblAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "admin ID", "admin Name", "admin pw", "role"
+            }
+        ));
+        jScrollPane2.setViewportView(tblAdmin);
+
+        jButton1.setText("create");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("view");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -108,19 +131,22 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGap(89, 89, 89)
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(lblSelectedNode, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnManageHospitalAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnManageDeliveryman, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                                .addComponent(btnManagePoliceAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(295, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSelectedNode, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(43, 43, 43)
+                                .addComponent(jButton2)
+                                .addGap(48, 48, 48)
+                                .addComponent(jButton3))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,13 +157,14 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblSelectedNode))
-                .addGap(18, 18, 18)
-                .addComponent(btnManagePoliceAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnManageHospitalAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnManageDeliveryman, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(268, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -153,42 +180,103 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTreeValueChanged
 
-    private void btnManagePoliceAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePoliceAdminActionPerformed
-/*        ManageCustomerJPanel manageCustomerJPanel=new ManageCustomerJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("ManageCustomerJPanel",manageCustomerJPanel);
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        AddAdminJPanel cejp = new AddAdminJPanel(userProcessContainer,this.org);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-*/
-    }//GEN-LAST:event_btnManagePoliceAdminActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnManageHospitalAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageHospitalAdminActionPerformed
-  /*      ManageRestaurantJPanel manageRestaurantJPanel=new ManageRestaurantJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("ManageRestaurantJPanel",manageRestaurantJPanel);
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-*/
-    }//GEN-LAST:event_btnManageHospitalAdminActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         int row = tblAdmin.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        OrganizationAdmin ad = (OrganizationAdmin)tblAdmin.getValueAt(row, 0);   
+        
+        
+        
+        
+     ViewAdminJPanel vajp = new ViewAdminJPanel(userProcessContainer,ad);
+     userProcessContainer.add(vajp);
+     CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+     layout.next(userProcessContainer);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnManageDeliverymanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDeliverymanActionPerformed
-  /*      ManageDeliverJPanel manageDeliverJPanel=new ManageDeliverJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("ManageDeliverJPanel",manageDeliverJPanel);
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-*/
-    }//GEN-LAST:event_btnManageDeliverymanActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         int row = tblAdmin.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        OrganizationAdmin ad = (OrganizationAdmin)tblAdmin.getValueAt(row, 0); 
+        ad.delete();
+        refreshAdmin();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnManageDeliveryman;
-    private javax.swing.JButton btnManageHospitalAdmin;
-    private javax.swing.JButton btnManagePoliceAdmin;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTree jTree;
     private javax.swing.JLabel lblSelectedNode;
+    private javax.swing.JTable tblAdmin;
     // End of variables declaration//GEN-END:variables
+
+    public void refreshAdmin() {
+        int rowCount = tblAdmin.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblAdmin.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (OrganizationAdmin ad:org.queryAllAdmin()) {
+               if(ad.getRole()!=0) continue; 
+               Object row[] = new Object[4];
+                row[0] = ad;
+                row[1] = ad.getAdmin_name();
+                row[2] = ad.getAdmin_pw();
+                row[3] = ad.getRole();
+                model.addRow(row);
+        }
+         for (OrganizationAdmin ad:org.queryAllAdmin()) {
+               if(ad.getRole()!=1) continue; 
+               Object row[] = new Object[4];
+                row[0] = ad;
+                row[1] = ad.getAdmin_name();
+                row[2] = ad.getAdmin_pw();
+                row[3] = ad.getRole();
+                model.addRow(row);
+        }
+          for (OrganizationAdmin ad:org.queryAllAdmin()) {
+               if(ad.getRole()!=2) continue; 
+               Object row[] = new Object[4];
+                row[0] = ad;
+                row[1] = ad.getAdmin_name();
+                row[2] = ad.getAdmin_pw();
+                row[3] = ad.getRole();
+                model.addRow(row);
+        }
+           for (OrganizationAdmin ad:org.queryAllAdmin()) {
+               if(ad.getRole()!=3) continue; 
+               Object row[] = new Object[4];
+                row[0] = ad;
+                row[1] = ad.getAdmin_name();
+                row[2] = ad.getAdmin_pw();
+                row[3] = ad.getRole();
+                model.addRow(row);
+        }
+    }
 }

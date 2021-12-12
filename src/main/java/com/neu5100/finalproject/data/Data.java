@@ -9,7 +9,9 @@ import com.neu5100.finalproject.model.AssignWorkRequest;
 import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Population;
+import com.neu5100.finalproject.model.Receiver;
 import com.neu5100.finalproject.model.Voluntary;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -270,7 +272,18 @@ public class Data {
     }
 
     public ResultSet queryDisaster() {
-        String sql = "select * disaster from where allowed_voluntary != 0";
+        String sql = "select *  from disaster where allowed_voluntary != 0";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+    public ResultSet queryAllDisaster() {
+        String sql = "select * from disaster";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet executeQuery = stmt.executeQuery();
@@ -309,4 +322,361 @@ public class Data {
              return false;
         }
     }
+
+    public ResultSet queryOps(IncidentOps ops) {
+        String sql = "SELECT * FROM ecosystem.911ops where ops_name= ? and ops_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, ops.getOps_name());
+            stmt.setString(2, ops.getOps_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAdmin(OrganizationAdmin admin) {
+        String sql = "SELECT * FROM ecosystem.org_admin where admin_name= ? and admin_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, admin.getAdmin_name());
+            stmt.setString(2, admin.getAdmin_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryRec(Receiver receiver) {
+       String sql = "SELECT * FROM ecosystem.receiver_info where receiver_name= ? and receiver_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, receiver.getReceiver_name());
+            stmt.setString(2, receiver.getReceiver_pw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean insert(Voluntary vol) {
+        String sql = "insert into voluntary values(?,?,?,?,?,?)";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vol.getVid());
+            stmt.setString(2, vol.getVname());
+            stmt.setString(3, vol.getPw());
+            stmt.setInt(4, vol.getIs_individual());
+            stmt.setString(5, vol.getCity());
+            stmt.setString(6, vol.getEmail());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public ResultSet queryVol(Voluntary vol) {
+        String sql = "SELECT * FROM ecosystem.voluntary where vname= ? and vol_pw = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,vol.getVname() );
+            stmt.setString(2, vol.getPw());
+            return stmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean updateReq(AssignWorkRequest awr) {
+        String sql = "update assign_emergency_request set emergency_id =?,need_police = ?,need_hospital =?,need_fireman = ?,`status` =?,vol_number = ?, disaster_id = ? where assign_id = ?";
+       try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, awr.getEmergency_id());
+            stmt.setInt(2,awr.getNeed_police());
+            stmt.setInt(3,awr.getNeed_hospital());
+            stmt.setInt(4, awr.getNeed_firman());
+            stmt.setInt(5,awr.getSatus());
+            stmt.setInt(6,awr.getVol_number());
+            stmt.setInt(7,awr.getDisaster_id());
+            stmt.setInt(8,awr.getAssign_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public boolean updateDisaster(Disaster dis) {
+        try {
+            String sql = "update disaster set disaster_name = ?,disaster_level = ?, allowed_voluntary = ?,max_voluntary =? where disaster_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, dis.getDisaster_name());
+            stmt.setInt(2, dis.getDisaster_level());
+            stmt.setInt(3, dis.getAllowed_voluntary());
+            stmt.setInt(4, dis.getMax_voluntary());
+            stmt.setInt(5, dis.getDisaster_id());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updateEm(Emergency e) {
+        try {
+            String sql = "update emergency set ename = ?, popid = ?, situation = ? , time =?,zipcode= ?,opsid = ? where eid =?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,e.getEname());
+            stmt.setInt(2,e.getPopid());
+            stmt.setString(3, e.getSituation());
+            stmt.setString(4, e.getTime());
+            stmt.setInt(5, e.getZipcode());
+            stmt.setInt(6, e.getOpsid());
+            stmt.setInt(7, e.getEid());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updateIncident(IncidentOps io) {
+        try {
+            String sql = "update 911ops set ops_name = ?, ops_pw =? where ops_id=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,io.getOps_name());
+            stmt.setString(2, io.getOps_pw());
+            stmt.setInt(3, io.getOps_id());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updateOrgAdmin(OrganizationAdmin oa) {
+        try {
+            String sql = "update org_admin  set admin_name = ?, admin_pw =? , role = ? where admin_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, oa.getAdmin_name());
+            stmt.setString(2, oa.getAdmin_pw());
+            stmt.setInt(3, oa.getRole());
+            stmt.setInt(4, oa.getAdmin_id());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updatePop(Population pop) {
+       try {
+            String sql = "update population set pop_name = ?,pop_age = ?,pop_gender= ?,pop_phone =? where pop_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, pop.getPop_name());
+            stmt.setInt(2, pop.getPop_age());
+            stmt.setInt(3, pop.getPop_gender());
+            stmt.setString(4, pop.getPop_phone());
+            stmt.setInt(5, pop.getPop_id());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updateRec(Receiver re) {
+       try {
+            String sql = "update receiver_info set receiver_name=?,receiver_pw =?, role =? where receiver_id =?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, re.getReceiver_name());
+            stmt.setString(2, re.getReceiver_pw());
+            stmt.setInt(3, re.getRole());
+            stmt.setInt(4, re.getReceiver_id());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean updateVol(Voluntary vol) {
+        try {
+            String sql = "update voluntary set vname= ?, vol_pw= ?,is_individual =? ,city=?,email=? where vid = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, vol.getVname());
+            stmt.setString(2, vol.getPw());
+            stmt.setInt(3, vol.getIs_individual());
+            stmt.setString(4, vol.getCity());                           
+            stmt.setString(5, vol.getEmail());
+            stmt.setInt(6, vol.getVid());
+            return stmt.execute();
+                    } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public ResultSet queryAllEmergency() {
+        String sql = "select * from emergency";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet selectAllWorkrequest() {
+        try{
+            String sql  = "select * from assign_emergency_request";
+            PreparedStatement prepareStatement = conn.prepareStatement(sql);
+            ResultSet executeQuery = prepareStatement.executeQuery();
+           return executeQuery;
+        }catch(SQLException ex){
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean insert(Receiver re) {
+         String sql = "insert into receiver_info values ( ?,?,?,?)";
+       
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, re.getReceiver_id());
+            stmt.setString(2, re.getReceiver_name());
+            stmt.setString(3, re.getReceiver_pw());
+            stmt.setInt(4, re.getRole());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public ResultSet queryAdmin() {
+       String sql = "select * from org_admin";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean insert(OrganizationAdmin ad) {
+       String sql = "insert into org_admin values ( ?,?,?,?)";
+       
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ad.getAdmin_id());
+            stmt.setString(2, ad.getAdmin_name());
+            stmt.setString(3, ad.getAdmin_pw());
+            stmt.setInt(4, ad.getRole());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public ResultSet queryEmergency(int emergency_id) {
+        String sql = "SELECT * FROM ecosystem.emergency where eid = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, emergency_id);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAllReceivere() {
+         String  sql ="SELECT * FROM ecosystem.receiver_info";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryAllVol() {
+       String  sql ="SELECT * FROM ecosystem.voluntary";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryReceiverByDi(int disasterId) {
+        String  sql ="SELECT * FROM ecosystem.assign_emergency_request where disaster_id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, disasterId);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public ResultSet queryDisasterByVol(int vid) {
+        String  sql ="SELECT disaster.disaster_id,disaster_name,disaster_level,allowed_voluntary,max_voluntary FROM ecosystem.disaster,disaster_vol where disaster.disaster_id =disaster_vol.disaster_id and voluntary_id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vid);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+
+    public boolean deleDisVol(Disaster d, Voluntary vol) {
+        String sql  = "DELETE FROM `ecosystem`.`disaster_vol` WHERE `voluntary_id` = ? and `disaster_id` = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vol.getVid());
+            stmt.setInt(2, d.getDisaster_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    public boolean deleteAdmin(OrganizationAdmin admin) {
+         String sql  = "DELETE FROM `ecosystem`.`org_admin` WHERE `admin_id` = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, admin.getAdmin_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
+    
 }
