@@ -13,14 +13,14 @@ import javax.swing.JPanel;
  *
  * @author chenghongmei
  */
-public class CreateJPanel extends javax.swing.JPanel {
+public class CreateEmergencyJPanel extends javax.swing.JPanel {
 
     private JPanel OperatorProcessContainer;
     private IncidentOps ops;
     
     
 
-    public CreateJPanel(JPanel operatorProcessContainer,IncidentOps ops) {
+    public CreateEmergencyJPanel(JPanel operatorProcessContainer,IncidentOps ops) {
         this.OperatorProcessContainer = operatorProcessContainer;
         this.ops = ops;
     }

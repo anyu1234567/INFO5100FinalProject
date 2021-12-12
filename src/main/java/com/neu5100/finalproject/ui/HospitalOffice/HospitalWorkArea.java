@@ -5,17 +5,26 @@
  */
 package com.neu5100.finalproject.ui.HospitalOffice;
 
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Lenovo
  */
 public class HospitalWorkArea extends javax.swing.JPanel {
-
+    JPanel userProcessContainer;
+    //Data data;
+    OrganizationAdmin organizationAdmin;
     /**
      * Creates new form HospitalWorkArea
      */
-    public HospitalWorkArea() {
+    public HospitalWorkArea(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
+        this.organizationAdmin = organizationAdmin;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**

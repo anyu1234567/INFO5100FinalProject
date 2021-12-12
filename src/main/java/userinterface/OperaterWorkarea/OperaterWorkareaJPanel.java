@@ -6,6 +6,7 @@
 package userinterface.OperaterWorkarea;
 
 import com.neu5100.finalproject.data.Test;
+import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -161,7 +162,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                                     .addComponent(btnDisaster)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSuiside, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,11 +192,11 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-       CreateJPanel createJPanel  = new  CreateJPanel (OperatorProcessContainer,ops);
-       OperatorProcessContainer.add("CreatJPanel",createJPanel);
+       CreateEmergencyJPanel createJPanel  = new  CreateEmergencyJPanel(OperatorProcessContainer,ops);
+       OperatorProcessContainer.add(createJPanel);
        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
        layout.next(OperatorProcessContainer);
-        
+       
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnProcess1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcess1ActionPerformed
@@ -237,18 +238,16 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnDisasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisasterActionPerformed
         // TODO add your handling code here:
-            int selectedRowIndex = EventTable1.getSelectedRow();
-    if ( selectedRowIndex < 0){
+            int row = EventTable1.getSelectedRow();
+    if ( row < 0){
         JOptionPane.showMessageDialog(this, "Please select an order first.");
         return;
-    }       
-        
-       DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
-        
-        DisasterWorkareaJPanel disasterWorkareaJPanel = new DisasterWorkareaJPanel(OperatorProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
-        OperatorProcessContainer.add("DisasterWorkareaJPanel",disasterWorkareaJPanel);
-        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-        layout.next(OperatorProcessContainer);
+    }
+//         Emergency e = (Emergency)EventTable1.getValueAt(row, 0);
+//        DisasterWorkareaJPanel disasterWorkareaJPanel = new DisasterWorkareaJPanel(OperatorProcessContainer,e);
+//        OperatorProcessContainer.add("DisasterWorkareaJPanel",disasterWorkareaJPanel);
+//        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
+//        layout.next(OperatorProcessContainer);
         
         
     }//GEN-LAST:event_btnDisasterActionPerformed
@@ -275,19 +274,20 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     
      public void populateOrderTable(){
-       DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
-        model.setRowCount(0);
-       for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
-            Object row[] = new Object[5];
-            System.out.println(workRequest);
-            row[0] = workRequest;
-            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
-            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
-            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
-            row[3] = workRequest.getStatus();
-           row[4] = workRequest.getComment();
-            model.addRow(row);
-        }
+//       DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
+//        model.setRowCount(0);
+//       for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
+//            Object row[] = new Object[5];
+//            System.out.println(workRequest);
+//            row[0] = workRequest;
+//            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
+//            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
+//            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
+//            row[3] = workRequest.getStatus();
+//           row[4] = workRequest.getComment();
+//            model.addRow(row);
+//        }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EventTable1;

@@ -5,19 +5,25 @@
  */
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Lenovo
  */
 public class VoluntaryWorkArea extends javax.swing.JPanel {
-
+    JPanel userProcessContainer;
+    //Data data;
+    OrganizationAdmin organizationAdmin;
     /**
      * Creates new form FiremanManage
      */
-    public VoluntaryWorkArea() {
+    public VoluntaryWorkArea(JPanel userProcessContainer,OrganizationAdmin organizationAdmin) {
         initComponents();
+        this.organizationAdmin = organizationAdmin;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**

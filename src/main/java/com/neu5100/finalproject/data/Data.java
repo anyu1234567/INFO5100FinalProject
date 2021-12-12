@@ -272,7 +272,18 @@ public class Data {
     }
 
     public ResultSet queryDisaster() {
-        String sql = "select * disaster from where allowed_voluntary != 0";
+        String sql = "select *  from disaster where allowed_voluntary != 0";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet executeQuery = stmt.executeQuery();
+            return executeQuery;
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return null;
+        }
+    }
+    public ResultSet queryAllDisaster() {
+        String sql = "select * from disaster";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet executeQuery = stmt.executeQuery();
