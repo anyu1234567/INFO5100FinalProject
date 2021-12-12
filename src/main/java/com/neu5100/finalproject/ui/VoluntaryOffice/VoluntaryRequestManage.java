@@ -5,19 +5,33 @@
  */
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Disaster;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
+import com.neu5100.finalproject.model.Voluntary;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Lenovo
  */
 public class VoluntaryRequestManage extends javax.swing.JPanel {
-
+    JPanel userProcessContainer;
+    OrganizationAdmin admin;
     /**
      * Creates new form PoliceAdmin
      */
-    public VoluntaryRequestManage() {
+    public VoluntaryRequestManage(JPanel userProcessContainer, OrganizationAdmin admin) {
         initComponents();
+        this.userProcessContainer =userProcessContainer;
+        this.admin = admin;
+        refreshDi();
+        
     }
 
     /**
@@ -29,30 +43,18 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblRequest = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnAccept = new javax.swing.JButton();
         btnAssign = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
-        cmbNonprofit = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cmbIndividual = new javax.swing.JComboBox<>();
-
-        tblRequest.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Date", "Feedback"
-            }
-        ));
-        jScrollPane1.setViewportView(tblRequest);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDisaster = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblreques = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -65,89 +67,170 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
         jLabel2.setText("Manage Voluntary Request");
 
         btnAccept.setText("Accept Request");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         btnAssign.setText("Assign Request");
 
         btnReject.setText("Reject Request");
-
-        cmbNonprofit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnReject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRejectActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Non-profit Organization");
 
         jLabel6.setText("Individual Voluntary");
 
-        cmbIndividual.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tblDisaster.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "level", "allowed vol", "max voluntary"
+            }
+        ));
+        jScrollPane2.setViewportView(tblDisaster);
+
+        tblreques.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "assign_id", "emergency ID", "need_police", "need_hospital", "need_fireman", "status", "disaster_id"
+            }
+        ));
+        jScrollPane3.setViewportView(tblreques);
+
+        jButton1.setText("view request");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(153, 153, 153)
-                                .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBack)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(165, 165, 165)
+                                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(61, 61, 61))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cmbIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbNonprofit, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(42, 42, 42)
-                                .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)))
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(177, 177, 177))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(57, 57, 57)
+                                            .addComponent(jScrollPane2)))
+                                    .addGap(161, 161, 161)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(177, 177, 177))))
+                    .addComponent(jScrollPane3)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAccept)
-                    .addComponent(btnReject))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnReject)
+                    .addComponent(jButton1))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAssign)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbNonprofit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(cmbIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(268, 268, 268))
+                        .addComponent(jLabel6))
+                    .addComponent(btnAssign))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(293, 293, 293))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+         userProcessContainer.remove(this); 
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         int selectedRowIndex = tblDisaster.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        
+         Disaster d = (Disaster)tblDisaster.getValueAt(selectedRowIndex, 0);
+         refreshWR(d.getDisaster_id());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblreques.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a request row first.");
+            return;
+        } 
+        
+         AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(selectedRowIndex, 0);
+         awr.setSatus(1);
+         awr.update();
+         JOptionPane.showMessageDialog(this, "request accepted");
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblreques.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a request row first.");
+            return;
+        } 
+        
+         AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(selectedRowIndex, 0);
+         awr.setSatus(5);
+         awr.update();
+         JOptionPane.showMessageDialog(this, "request rejected");
+    }//GEN-LAST:event_btnRejectActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -155,12 +238,57 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReject;
-    private javax.swing.JComboBox<String> cmbIndividual;
-    private javax.swing.JComboBox<String> cmbNonprofit;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblRequest;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblDisaster;
+    private javax.swing.JTable tblreques;
     // End of variables declaration//GEN-END:variables
+
+    private void refreshWR(int disasterid) {
+        int rowCount = tblreques.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblreques.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (AssignWorkRequest awr:admin.queryRecquestByDisaster(disasterid)) {
+                
+               Object row[] = new Object[7];
+                row[0] = awr;
+                row[1] = awr.getEmergency_id();
+                row[2] = awr.getNeed_police();
+                row[3] = awr.getNeed_hospital();
+                row[4] = awr.getNeed_firman();
+                row[5] = awr.getSatus();
+                row[6] = awr.getDisaster_id();
+                model.addRow(row);
+
+        }
+    }
+
+    private void refreshDi() {
+        int rowCount = tblDisaster.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblDisaster.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (Disaster d:admin.queryAllowedDisaster()) {
+                
+               Object row[] = new Object[5];
+                row[0] = d;
+                row[1] = d.getDisaster_name();
+                row[2] = d.getDisaster_level();
+                row[3] = d.getAllowed_voluntary();
+                row[4] = d.getMax_voluntary();
+                model.addRow(row);
+           
+            
+            
+        }
+    }
 }

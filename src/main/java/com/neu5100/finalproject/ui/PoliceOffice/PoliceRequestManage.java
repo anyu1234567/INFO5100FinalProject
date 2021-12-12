@@ -25,36 +25,60 @@ public class PoliceRequestManage extends javax.swing.JPanel {
      */
     
     JPanel userProcessContainer;
-    Receiver receiver;
-    AssignWorkRequest assignWorkRequest;
-    Emergency emergency;
-    OrganizationAdmin admin;
+  OrganizationAdmin admin;
     
     public PoliceRequestManage(JPanel userProcessContainer,OrganizationAdmin admin) {
         initComponents();
         initComponents();
         this.admin =admin;
         this.userProcessContainer = userProcessContainer;
-        popData();
+        refreshWorkRequest();
+        refreshReceiver();
     }
 
-     public void popData() {
-
-        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
-        model.setRowCount(0);
-        
-        for (AssignWorkRequest assignWorkRequest :admin.queryWorkRequestByRole() ) {
-                Object row[] = new Object[8];
-                  row[0] = assignWorkRequest;
-                  row[1] = emergency.getEname();
-                  row[2] = emergency.getZipcode();
-                  row[3] = emergency.getSituation();
-                  row[4] = emergency.getPopid();//reporter
-                  row[5] = assignWorkRequest.getSatus();
-                  row[6] = emergency.getTime();
-                model.addRow(row);
+     public void refreshEmergency(Emergency e) {
+        int rowCount = tblEmergency.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblEmergency.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
         }
+        Object row[] = new Object[7];
+        row[0] = e;
+        row[1] = e.getEname();
+        row[2] = e.getPopid();
+        row[3] = e.getSituation();
+        row[4] = e.getTime();
+        row[5] = e.getZipcode();
+        row[6] = e.getOpsid();
+        model.addRow(row);
+           
+            
+            
+        
     }
+     public void refreshWorkRequest(){
+            int rowCount = tblreques.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblreques.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (AssignWorkRequest awr:admin.queryWorkRequestByRole()) {
+                
+               Object row[] = new Object[7];
+                row[0] = awr;
+                row[1] = awr.getEmergency_id();
+                row[2] = awr.getNeed_police();
+                row[3] = awr.getNeed_hospital();
+                row[4] = awr.getNeed_firman();
+                row[5] = awr.getSatus();
+                row[6] = awr.getDisaster_id();
+                model.addRow(row);
+           
+            
+            
+        }
+     }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,10 +94,14 @@ public class PoliceRequestManage extends javax.swing.JPanel {
         btnAccept = new javax.swing.JButton();
         btnAssign = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
-        cmbPolice = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblRequest = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblreques = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblReceiver = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblEmergency = new javax.swing.JTable();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +111,7 @@ public class PoliceRequestManage extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("宋体", 0, 24)); // NOI18N
-        jLabel2.setText("Manage Police Request");
+        jLabel2.setText("Manage Receiver Request");
 
         btnAccept.setText("Accept Request");
         btnAccept.addActionListener(new java.awt.event.ActionListener() {
@@ -106,22 +134,53 @@ public class PoliceRequestManage extends javax.swing.JPanel {
             }
         });
 
-        cmbPolice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel5.setText("Police Group:");
 
-        tblRequest.setModel(new javax.swing.table.DefaultTableModel(
+        tblreques.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Receiver", "Date", "Feedback"
+                "assign_id", "emergency ID", "need_police", "need_hospital", "need_fireman", "status", "disaster_id"
             }
         ));
-        jScrollPane2.setViewportView(tblRequest);
+        jScrollPane3.setViewportView(tblreques);
+
+        tblReceiver.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "receiver ID"
+            }
+        ));
+        jScrollPane4.setViewportView(tblReceiver);
+
+        jButton1.setText("view Emergency");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        tblEmergency.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "emergency ID", "ename", "pop id", "situation", "time", "zipcode", "opsid"
+            }
+        ));
+        jScrollPane5.setViewportView(tblEmergency);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,50 +188,58 @@ public class PoliceRequestManage extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBack))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbPolice, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(137, 137, 137)
                                 .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 134, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBack)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(23, 23, 23))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(216, 216, 216))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBack)
-                .addGap(37, 37, 37)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAccept)
-                    .addComponent(btnReject))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnReject)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAssign)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbPolice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)))
-                .addContainerGap(238, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,57 +252,66 @@ public class PoliceRequestManage extends javax.swing.JPanel {
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = tblRequest.getSelectedRow();
+        int selectedRowIndex = tblreques.getSelectedRow();
         if ( selectedRowIndex < 0){
             JOptionPane.showMessageDialog(this, "Please select a row first.");
             return;
         } 
         
-        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
-        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
-        
-        assignWorkRequest.setSatus(1);
-        assignWorkRequest.update();
-        popData();
+         AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(selectedRowIndex, 0);
+        awr.setSatus(1);
+        awr.update();
+         refreshWorkRequest();
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = tblRequest.getSelectedRow();
+        int selectedRowIndex = tblreques.getSelectedRow();
         if ( selectedRowIndex < 0){
             JOptionPane.showMessageDialog(this, "Please select a row first.");
             return;
         } 
         
-        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
-        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
-        
-        assignWorkRequest.setSatus(5);//reject，还没有设定
-        assignWorkRequest.update();
-        popData();
+        AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(selectedRowIndex, 0);
+        awr.setSatus(5);
+        awr.update();
+        refreshWorkRequest();
     }//GEN-LAST:event_btnRejectActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        // TODO add your handling code here:
-         int selectedRowIndex = tblRequest.getSelectedRow();
-        if ( selectedRowIndex < 0){
+        int row = tblreques.getSelectedRow();
+        if ( row < 0){
             JOptionPane.showMessageDialog(this, "Please select a row first.");
             return;
         } 
-        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
-
-        Receiver selecteReceiver = (Receiver)cmbPolice.getSelectedItem();
-
-        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
-        assignWorkRequest.setReceiver_request(1);
-        assignWorkRequest.setSatus(2);
+        AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(row, 0);
         
-        //selecteDeliveryMan.getDeliverymanAccount().getOrderDirectory().getOrders().add(orders);
-        //加到fireman的表格里
+        int selectedRowIndex = tblReceiver.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a police .");
+            return;
+        } 
+        Receiver re = (Receiver)tblReceiver.getValueAt(selectedRowIndex, 0);
         
-        assignWorkRequest.update();
-        popData();
+        boolean chooseRequest = admin.chooseRequest(awr.getAssign_id(), re.getReceiver_id());
+        JOptionPane.showMessageDialog(this, "assign request success");
+
     }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int row = tblreques.getSelectedRow();
+        if ( row < 0){
+            JOptionPane.showMessageDialog(this, "Please select an row first.");
+            return;
+        }
+
+        AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(row, 0);
+        Emergency e= admin.queryEmergency(awr.getEmergency_id());
+        if(e!=null){
+            refreshEmergency(e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,10 +319,32 @@ public class PoliceRequestManage extends javax.swing.JPanel {
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReject;
-    private javax.swing.JComboBox<String> cmbPolice;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblRequest;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable tblEmergency;
+    private javax.swing.JTable tblReceiver;
+    private javax.swing.JTable tblreques;
     // End of variables declaration//GEN-END:variables
+
+    public void refreshReceiver() {
+        int rowCount = tblReceiver.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblReceiver.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (Receiver re:admin.queryReceiverByRole()) {
+                
+               Object row[] = new Object[1];
+                row[0] = re;
+                model.addRow(row);
+           
+            
+            
+        }
+    }
 }

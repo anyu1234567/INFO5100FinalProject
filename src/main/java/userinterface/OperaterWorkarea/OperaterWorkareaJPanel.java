@@ -5,19 +5,14 @@
  */
 package userinterface.OperaterWorkarea;
 
-import com.neu5100.finalproject.data.Test;
 import com.neu5100.finalproject.model.AssignWorkRequest;
-import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.SuicideWorkarea.SuicideWorkareaJPanel;
-import userinterface.disasterWorkarea.AddDisasterJPanel;
-import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
 
 /**
  *
