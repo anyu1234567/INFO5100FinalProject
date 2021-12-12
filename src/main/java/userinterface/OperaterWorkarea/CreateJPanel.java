@@ -13,14 +13,14 @@ import javax.swing.JPanel;
  *
  * @author chenghongmei
  */
-public class CreatJPanel extends javax.swing.JPanel {
+public class CreateJPanel extends javax.swing.JPanel {
 
     private JPanel OperatorProcessContainer;
     private IncidentOps ops;
     
     
 
-    public CreatJPanel(JPanel operatorProcessContainer,IncidentOps ops) {
+    public CreateJPanel(JPanel operatorProcessContainer,IncidentOps ops) {
         this.OperatorProcessContainer = operatorProcessContainer;
         this.ops = ops;
     }
@@ -50,11 +50,7 @@ public class CreatJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Issue name");
 
-        jTextField1.setText("jTextField1");
-
         jLabel2.setText("Location");
-
-        jTextField2.setText("jTextField2");
 
         jLabel3.setText("Situiation description");
 
@@ -63,8 +59,6 @@ public class CreatJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTextArea1);
 
         jLabel4.setText("Reporter");
-
-        jTextField3.setText("jTextField3");
 
         jLabel5.setText("Date (or time)");
 

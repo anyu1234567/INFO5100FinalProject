@@ -5,21 +5,27 @@
  */
 package com.neu5100.finalproject.ui.PoliceOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.ui.HospitalOffice.*;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Lenovo
  */
 public class PoliceWorkArea extends javax.swing.JPanel {
-
+   
+    JPanel userProcessContainer;
+    //Data data;
+    OrganizationAdmin organizationAdmin;
     /**
      * Creates new form HospitalWorkArea
      */
-    public PoliceWorkArea() {
+     public PoliceWorkArea(JPanel jPanel,OrganizationAdmin admin) {
         initComponents();
+        this.userProcessContainer = jPanel;
+        this.organizationAdmin = admin;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
