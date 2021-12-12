@@ -6,7 +6,10 @@
 package com.neu5100.finalproject.ui.PoliceOffice;
 
 import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
+import com.neu5100.finalproject.ui.FiremanOffice.FiresafetyRequestManage;
 import com.neu5100.finalproject.ui.HospitalOffice.*;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -141,10 +144,18 @@ public class PoliceWorkArea extends javax.swing.JPanel {
 
     private void btnManagePoliceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePoliceActionPerformed
         // TODO add your handling code here:
+        PolicemanManage policemanManage =new PolicemanManage(userProcessContainer,organizationAdmin);
+        userProcessContainer.add("policemanManage",policemanManage);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManagePoliceActionPerformed
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
+        PoliceRequestManage plrm =new PoliceRequestManage(userProcessContainer,organizationAdmin);
+        userProcessContainer.add("policeRequestManage",plrm);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);  
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
     private void btnManagePoliceComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnManagePoliceComponentShown

@@ -179,20 +179,18 @@ public class AddFireman extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(this, "Please Complete the Information!!!");
         
         else{
-//          int id = Integer.parseInt(txtId.getText());
-//          String username = txtUserName.getText();
-//          String password = txtPassword.getText();
+          receiver.setReceiver_id(Integer.parseInt(txtId.getText()));
+          receiver.setReceiver_name(txtUserName.getText());
+          receiver.setReceiver_pw(txtPassword.getText());
           
-          //Receiver receiver = new Receiver();
-       
-//          if (!ecoSystem.checkIfUserIsUnique(username)) {
+//        if (!ecoSystem.checkIfUserIsUnique(username)) {
 //            JOptionPane.showMessageDialog(this, "UserName Has been existed!Please Input another name!");
-//          }
-//          else{
+//        }
+//        else{
             admin.createReceiver(receiver);
             JOptionPane.showMessageDialog(this, "Add a Fireman");
             receiver.update();
-            //firemanManage.popData();
+
           //}
         }
     }//GEN-LAST:event_btnSaveActionPerformed
