@@ -28,7 +28,6 @@ public class FiremanWorkArea extends javax.swing.JPanel {
     OrganizationAdmin organizationAdmin;
     Receiver receiver;
     AssignWorkRequest assignWorkRequest;
-    Emergency emergency;
     
     public FiremanWorkArea(JPanel jPanel,OrganizationAdmin admin) {
         initComponents();

@@ -20,7 +20,7 @@ public class OrganizationAdmin {
     private int admin_id;
     private String admin_name;
     private String admin_pw;
-    // role : 0 ,1,2,3  police ,hosptial fire , voluntary
+    // role : 0 ,1,2,3  police , fire,hosptial , voluntary
     private int role;
 
     public OrganizationAdmin(int admin_id, String admin_name, String admin_pw, int role) {

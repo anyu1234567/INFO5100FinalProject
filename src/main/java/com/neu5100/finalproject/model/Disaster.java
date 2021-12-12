@@ -18,6 +18,11 @@ public class Disaster {
     private int allowed_voluntary;
     private int max_voluntary;
 
+    @Override
+    public String toString() {
+        return ""+ disaster_id;
+    }
+
     public Disaster(int disaster_id, String disaster_name, int disaster_level, int allowed_voluntary, int max_voluntary) {
         this.disaster_id = disaster_id;
         this.disaster_name = disaster_name;

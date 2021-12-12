@@ -8,6 +8,7 @@ package com.neu5100.finalproject.model;
 import com.neu5100.finalproject.data.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -122,5 +123,26 @@ public class IncidentOps {
     public boolean update(){
          Data instance = Data.getInstance();
         return  instance.updateIncident(this);
+    }
+    public  ArrayList<Disaster> queryDisaster(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryAllDisaster();
+            ArrayList<Disaster> array = new ArrayList<>();
+            //
+            while(rs.next()){
+                int id = rs.getInt("disaster_id");
+                String name = rs.getString("disaster_name");
+                int disaster_level= rs.getInt("disaster_level");
+                int allowed_voluntary = rs.getInt("allowed_voluntary");
+                int max_voluntary = rs.getInt("max_voluntary");
+                Disaster d = new Disaster(id, name, disaster_level, allowed_voluntary, max_voluntary);
+                array.add(d);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(Voluntary.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }
