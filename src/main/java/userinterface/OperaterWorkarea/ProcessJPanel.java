@@ -5,9 +5,7 @@
  */
 package userinterface.OperaterWorkarea;
 
-import com.neu5100.finalproject.data.Test;
 import com.neu5100.finalproject.model.AssignWorkRequest;
-import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
@@ -27,9 +25,9 @@ public class ProcessJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProcessJPanel
      */
-    public ProcessJPanel(JPanel OperatorProcessContainer,Emergency e,IncidentOps ops,int did) {
+    public ProcessJPanel(JPanel userProcessContainer,Emergency e,IncidentOps ops,int did) {
         initComponents();
-     this.userProcessContainer = OperatorProcessContainer;
+     this.userProcessContainer = userProcessContainer;
      this.e_id = e.getEid();
      this.ops =ops;
      nfc.removeAllItems();

@@ -224,15 +224,15 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         
-    int selectedRowIndex = EventTable1.getSelectedRow();
-    if ( selectedRowIndex < 0){
-        JOptionPane.showMessageDialog(this, "Please select an order first.");
+    int row = EventTable1.getSelectedRow();
+    if ( row < 0){
+        JOptionPane.showMessageDialog(this, "Please select an row first.");
         return;
     }       
         
-       DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
+       Emergency e = (Emergency)EventTable1.getValueAt(row, 0);
         
-        ViewEventJPanel viewEventJPanel = new ViewEventJPanel(userProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
+        ViewEventJPanel viewEventJPanel = new ViewEventJPanel(userProcessContainer,e);
         userProcessContainer.add("ViewEventJPanel",viewEventJPanel);
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);

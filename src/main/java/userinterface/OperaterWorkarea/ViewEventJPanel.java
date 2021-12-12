@@ -5,6 +5,7 @@
  */
 package userinterface.OperaterWorkarea;
 
+import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import javax.swing.JPanel;
 
@@ -16,15 +17,23 @@ public class ViewEventJPanel extends javax.swing.JPanel {
     private JPanel OperatorProcessContainer;
     private IncidentOps ops;
     private int ops_id;
+    private Emergency e;
     
     /**
      * Creates new form ViewEventJPanel
      */
-    public ViewEventJPanel(JPanel operatorProcessContainer,int ops_id) {
+    public ViewEventJPanel(JPanel operatorProcessContainer,Emergency e) {
         initComponents();
         this.OperatorProcessContainer = operatorProcessContainer;
         this.ops_id = ops_id;
-        //id---->ops
+        this.e = e;
+        txteid.setText(String.valueOf(e.getEid()));
+        txtename.setText(e.getEname());
+        txtsui.setText(e.getSituation());
+        txtpid.setText(String.valueOf(e.getPopid()));
+        txttime.setText(e.getTime());
+        txtzipCode.setText(String.valueOf(e.getZipcode()));
+        txtopsid.setText(String.valueOf(e.getOpsid()));
         
     }
 
@@ -37,27 +46,32 @@ public class ViewEventJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField3 = new javax.swing.JTextField();
+        txtpid = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txttime = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txteid = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtename = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtsui = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtzipCode = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtopsid = new javax.swing.JTextField();
+
+        txtpid.setEditable(false);
 
         jLabel5.setText("Date (or time)");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txttime.setEditable(false);
+        txttime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txttimeActionPerformed(evt);
             }
         });
 
@@ -70,9 +84,10 @@ public class ViewEventJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txteid.setEditable(false);
+        txteid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txteidActionPerformed(evt);
             }
         });
 
@@ -81,15 +96,24 @@ public class ViewEventJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("ename");
 
+        txtename.setEditable(false);
+
         jLabel3.setText("Situiation description");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtsui.setEditable(false);
+        txtsui.setColumns(20);
+        txtsui.setRows(5);
+        jScrollPane2.setViewportView(txtsui);
 
         jLabel4.setText("Reporter id");
 
-        jLabel7.setText("time");
+        jLabel7.setText("zipcode");
+
+        txtzipCode.setEditable(false);
+
+        jLabel8.setText("opsid");
+
+        txtopsid.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -105,18 +129,20 @@ public class ViewEventJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8)
                             .addComponent(jLabel7)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1)
+                            .addComponent(txteid)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2)
+                            .addComponent(txtename)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5))))
+                            .addComponent(txtpid)
+                            .addComponent(txttime)
+                            .addComponent(txtzipCode)
+                            .addComponent(txtopsid))))
                 .addContainerGap(301, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,11 +155,11 @@ public class ViewEventJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txteid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,16 +167,20 @@ public class ViewEventJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txttime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addComponent(txtzipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtopsid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -158,13 +188,13 @@ public class ViewEventJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txttimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txttimeActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txteidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txteidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txteidActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -176,12 +206,14 @@ public class ViewEventJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txteid;
+    private javax.swing.JTextField txtename;
+    private javax.swing.JTextField txtopsid;
+    private javax.swing.JTextField txtpid;
+    private javax.swing.JTextArea txtsui;
+    private javax.swing.JTextField txttime;
+    private javax.swing.JTextField txtzipCode;
     // End of variables declaration//GEN-END:variables
 }
