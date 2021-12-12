@@ -120,6 +120,7 @@ public class Receiver {
         Data instance = Data.getInstance();
         return instance.updateRec(this);
     }
+    
 
 
 }

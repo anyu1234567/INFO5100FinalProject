@@ -166,6 +166,7 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    
     /**
      * 通过request id 查询分配到此事件的receiver
      * @param request_id

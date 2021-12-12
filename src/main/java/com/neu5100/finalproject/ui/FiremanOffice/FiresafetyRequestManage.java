@@ -10,6 +10,8 @@ import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
 import java.awt.CardLayout;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +35,6 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         initComponents();
         this.admin =admin;
         this.userProcessContainer = userProcessContainer;
-//
         popData();
     }
     
@@ -44,13 +45,13 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         
         for (AssignWorkRequest assignWorkRequest :admin.queryWorkRequestByRole() ) {
                 Object row[] = new Object[8];
-                  row[0] = emergency;
+                  row[0] = assignWorkRequest;
                   row[1] = emergency.getEname();
                   row[2] = emergency.getZipcode();
                   row[3] = emergency.getSituation();
                   row[4] = emergency.getPopid();//reporter
-                  //status
-                  row[5] = emergency.getTime();
+                  row[5] = assignWorkRequest.getSatus();
+                  row[6] = emergency.getTime();
                 model.addRow(row);
         }
     }
@@ -76,13 +77,13 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Date", "Feedback"
+                "Issue ID", "Issue Name", "Location", "情况", "Reporter", "Status", "Receiver", "Date", "Feedback"
             }
         ));
         jScrollPane1.setViewportView(tblRequest);
@@ -98,10 +99,25 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         jLabel2.setText("Manage FireSafety Request");
 
         btnAccept.setText("Accept Request");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         btnAssign.setText("Assign Request");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnReject.setText("Reject Request");
+        btnReject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRejectActionPerformed(evt);
+            }
+        });
 
         cmbFireman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -171,6 +187,61 @@ public class FiresafetyRequestManage extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblRequest.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        
+        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
+        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
+        
+        assignWorkRequest.setSatus(1);
+        assignWorkRequest.update();
+        popData();
+        
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblRequest.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        
+        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
+        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
+        
+        assignWorkRequest.setSatus(5);//reject，还没有设定
+        assignWorkRequest.update();
+        popData();
+    }//GEN-LAST:event_btnRejectActionPerformed
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblRequest.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
+
+        Receiver selecteReceiver = (Receiver)cmbFireman.getSelectedItem();
+
+        //orders = restaurant.getRestaurantAccount().getOrderDirectory().searchOrderRequest(Integer.parseInt(String.valueOf(model.getValueAt(selectedRowIndex, 0))));
+        assignWorkRequest.setReceiver_request(1);
+        assignWorkRequest.setSatus(2);
+        
+        //selecteDeliveryMan.getDeliverymanAccount().getOrderDirectory().getOrders().add(orders);
+        //加到fireman的表格里
+        
+        assignWorkRequest.update();
+        popData();
+    }//GEN-LAST:event_btnAssignActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
