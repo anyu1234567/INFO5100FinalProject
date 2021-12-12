@@ -5,19 +5,14 @@
  */
 package userinterface.OperaterWorkarea;
 
-import com.neu5100.finalproject.data.Test;
 import com.neu5100.finalproject.model.AssignWorkRequest;
-import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.SuicideWorkarea.SuicideWorkareaJPanel;
-import userinterface.disasterWorkarea.AddDisasterJPanel;
-import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
 
 /**
  *
@@ -48,27 +43,18 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnDisaster = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
         btnProcess1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         EventTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        btnSuiside = new javax.swing.JButton();
         create = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblreques = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("911 OPERATOR WORK AREA");
-
-        btnDisaster.setText("report to disaster organization");
-        btnDisaster.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDisasterActionPerformed(evt);
-            }
-        });
 
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
@@ -106,13 +92,6 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
         jButton3.setText("Cancel Request");
 
-        btnSuiside.setText("report to suicide organization");
-        btnSuiside.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuisideActionPerformed(evt);
-            }
-        });
-
         create.setText("create");
         create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,19 +125,12 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                         .addGap(251, 251, 251)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71)
-                                .addComponent(btnProcess1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDisaster)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSuiside, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(41, 41, 41)
+                        .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
+                        .addComponent(btnProcess1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,16 +150,11 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnProcess1)
-                            .addComponent(btnView))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDisaster)
-                            .addComponent(btnSuiside)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnProcess1)
+                        .addComponent(btnView))
                     .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(59, 59, 59)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,43 +205,11 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewActionPerformed
 
-    private void btnDisasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisasterActionPerformed
-        // TODO add your handling code here:
-            int row = EventTable1.getSelectedRow();
-    if ( row < 0){
-        JOptionPane.showMessageDialog(this, "Please select an order first.");
-        return;
-    }
-//         Emergency e = (Emergency)EventTable1.getValueAt(row, 0);
-//        DisasterWorkareaJPanel disasterWorkareaJPanel = new DisasterWorkareaJPanel(OperatorProcessContainer,e);
-//        OperatorProcessContainer.add("DisasterWorkareaJPanel",disasterWorkareaJPanel);
-//        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-//        layout.next(OperatorProcessContainer);
-        
-        
-    }//GEN-LAST:event_btnDisasterActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         refreshEmergency();
         refreshWorkRequest();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnSuisideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuisideActionPerformed
-        // TODO add your handling code here:
-    int selectedRowIndex = EventTable1.getSelectedRow();
-    if ( selectedRowIndex < 0){
-        JOptionPane.showMessageDialog(this, "Please select an order first.");
-        return;
-    }       
-        
-       DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
-        
-        SuicideWorkareaJPanel suicideWorkareaJPanel = new SuicideWorkareaJPanel(userProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
-        userProcessContainer.add("SuicideWorkareaJPanel",suicideWorkareaJPanel);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_btnSuisideActionPerformed
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:
@@ -334,9 +269,7 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EventTable1;
-    private javax.swing.JButton btnDisaster;
     private javax.swing.JButton btnProcess1;
-    private javax.swing.JButton btnSuiside;
     private javax.swing.JButton btnView;
     private javax.swing.JButton create;
     private javax.swing.JButton jButton2;

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.volunteer.register;
+package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import userinterface.volunteer.register.*;
 import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Voluntary;
 import javax.swing.JOptionPane;
@@ -14,18 +15,34 @@ import javax.swing.JPanel;
  *
  * @author chenghongmei
  */
-public class VolunteerRegisterJpanel extends javax.swing.JPanel {
+public class ViewRegisterJpanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
+     Voluntary vol;
     /**
      * Creates new form volunteer
      */
-    public VolunteerRegisterJpanel(JPanel userProcessContainer) {
+    public ViewRegisterJpanel(JPanel userProcessContainer, Voluntary vol) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
+        this.vol = vol;
         cindi.removeAllItems();
-        cindi.addItem("individual");
-        cindi.addItem("organization");
+        if(vol.getIs_individual()==0){
+             cindi.addItem("organization");
+        }else{
+            cindi.addItem("individual");
+        }
+            
+        
+       
+      txtvolunterid.setText(String.valueOf(vol.getVid()));
+           txtUsername.setText(vol.getVname());
+         txtPassword.setText(vol.getPw());
+           txtCity.setText(vol.getCity());
+           txtEmail.setText(vol.getEmail());
+           
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,28 +101,31 @@ public class VolunteerRegisterJpanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147))
             .addGroup(layout.createSequentialGroup()
                 .addGap(232, 232, 232)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtEmail)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(txtvolunterid)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUsername)
+                    .addComponent(txtPassword)
+                    .addComponent(cindi, 0, 349, Short.MAX_VALUE)
+                    .addComponent(txtCity))
+                .addContainerGap(219, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtEmail)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel6)
-                        .addComponent(txtvolunterid)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(txtUsername)
-                        .addComponent(txtPassword)
-                        .addComponent(cindi, 0, 349, Short.MAX_VALUE)
-                        .addComponent(txtCity)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jToggleButton1)
+                        .addGap(349, 349, 349))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +156,9 @@ public class VolunteerRegisterJpanel extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addComponent(jToggleButton1)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,9 +191,9 @@ public class VolunteerRegisterJpanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please check prize, size", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        Voluntary vol = new Voluntary(id, name, pw, isindi, city, email);
-        vol.create();
-        JOptionPane.showMessageDialog(this, "voluntary  added!", "Info", JOptionPane.INFORMATION_MESSAGE);
+        this.vol = new Voluntary(id, name, pw, isindi, city, email);
+        vol.update();
+        JOptionPane.showMessageDialog(this, "voluntary  updated!", "Info", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
 

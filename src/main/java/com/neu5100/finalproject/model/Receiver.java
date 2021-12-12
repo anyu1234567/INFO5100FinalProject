@@ -21,6 +21,7 @@ public class Receiver {
     private int receiver_id;
     private String receiver_name;
     private String receiver_pw;
+    //0123 po , fire, hos , am
     private int role;
 
     @Override
@@ -35,10 +36,13 @@ public class Receiver {
         this.role = role;
     }
 
-    public Receiver(String receiver_name, String receiver_pw) {
+    public Receiver(String receiver_name, String receiver_pw, int role) {
         this.receiver_name = receiver_name;
         this.receiver_pw = receiver_pw;
+        this.role = role;
     }
+
+    
     
     public int getReceiver_id() {
         return receiver_id;
@@ -120,6 +124,29 @@ public class Receiver {
         Data instance = Data.getInstance();
         return instance.updateRec(this);
     }
+
+    public Emergency queryEmergency(int emergency_id) {
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryEmergency(emergency_id);
+            while(rs.next()){
+                int eid = rs.getInt("eid");
+                String ename = rs.getString("ename");
+                int popid = rs.getInt("popid");
+                String situation = rs.getString("situation");
+                String time = rs.getString("time");
+                int status = rs.getInt("zipcode");
+                int vol_number = rs.getInt("opsid");
+                Emergency e  = new Emergency(eid, ename, popid, situation, time, popid, popid);
+                return e; 
+            }
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 
 
 }

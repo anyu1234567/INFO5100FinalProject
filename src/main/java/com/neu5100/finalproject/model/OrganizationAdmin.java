@@ -166,6 +166,7 @@ public class OrganizationAdmin {
             return null;
         }
     }
+    
     /**
      * 通过request id 查询分配到此事件的receiver
      * @param request_id
@@ -266,5 +267,153 @@ public class OrganizationAdmin {
     public boolean createAdmin(OrganizationAdmin ad) {
         Data instance = Data.getInstance();
         return instance.insert(ad);
+    }
+
+    public Emergency queryEmergency(int emergency_id) {
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryEmergency(emergency_id);
+            while(rs.next()){
+                int eid = rs.getInt("eid");
+                String ename = rs.getString("ename");
+                int popid = rs.getInt("popid");
+                String situation = rs.getString("situation");
+                String time = rs.getString("time");
+                int status = rs.getInt("zipcode");
+                int vol_number = rs.getInt("opsid");
+                Emergency e  = new Emergency(eid, ename, popid, situation, time, popid, popid);
+                return e; 
+            }
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public ArrayList<Receiver> queryReceiverByRole() {
+       try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryAllReceivere();
+            ArrayList<Receiver> array = new ArrayList<>();
+            if(this.role == 0){
+                while(rs.next()){
+                   int receiver_id = rs.getInt("receiver_id");
+                   String receiver_name = rs.getString("receiver_name");
+                   String receiver_pw = rs.getString("receiver_pw");
+                   int role = rs.getInt("role");
+                   if(role!=0) continue;
+                   Receiver r = new Receiver(receiver_id, receiver_name, receiver_pw, role);
+                   array.add(r);
+               }
+            }
+            if(this.role == 1){
+                while(rs.next()){
+                   int receiver_id = rs.getInt("receiver_id");
+                   String receiver_name = rs.getString("receiver_name");
+                   String receiver_pw = rs.getString("receiver_pw");
+                   int role = rs.getInt("role");
+                   if(role!=1) continue;
+                   Receiver r = new Receiver(receiver_id, receiver_name, receiver_pw, role);
+                   array.add(r);
+               }
+            }
+            if(this.role == 2){
+                while(rs.next()){
+                   int receiver_id = rs.getInt("receiver_id");
+                   String receiver_name = rs.getString("receiver_name");
+                   String receiver_pw = rs.getString("receiver_pw");
+                   int role = rs.getInt("role");
+                   if(role==1||role==0) continue;
+                   Receiver r = new Receiver(receiver_id, receiver_name, receiver_pw, role);
+                   array.add(r);
+               }
+            }
+           
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public Iterable<Voluntary> queryAllVol() {
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryAllVol();
+            ArrayList<Voluntary> array = new ArrayList<>();
+            //receiver_info.receiver_id,receiver_name,receiver_pw,role
+            while(rs.next()){
+                int vid = rs.getInt("vid");
+                String vname= rs.getString("vname");
+                String vol_pw = rs.getString("vol_pw");
+                int is_individual = rs.getInt("is_individual");
+                String city = rs.getString("city");
+                String email = rs.getString("email");
+                Voluntary v = new Voluntary(vid, vname, vol_pw, is_individual, city, email);
+                array.add(v);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public ArrayList<AssignWorkRequest> queryRecquestByDisaster(int disasterId) {
+       try {
+            Data instance = Data.getInstance();
+            ResultSet selectForPolice = instance.queryReceiverByDi(disasterId);
+            ArrayList<AssignWorkRequest> array = new ArrayList<>();
+            //receiver_info.receiver_id,receiver_name,receiver_pw,role
+            while(selectForPolice.next()){
+                int aid = selectForPolice.getInt("assign_id");
+                int eid = selectForPolice.getInt("emergency_id");
+                int need_police = selectForPolice.getInt("need_police");
+                int need_hospital = selectForPolice.getInt("need_hospital");
+                int need_fireman = selectForPolice.getInt("need_fireman");
+                int status = selectForPolice.getInt("status");
+                int vol_num = selectForPolice.getInt("vol_number");
+                int disaster = selectForPolice.getInt("disaster_id");
+                AssignWorkRequest awr = new AssignWorkRequest(aid, eid, need_police, need_hospital, need_fireman, status, vol_num, disaster);
+                array.add(awr); 
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public Iterable<Disaster> queryAllowedDisaster() {
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryDisaster();
+            ArrayList<Disaster> array = new ArrayList<>();
+            //receiver_info.receiver_id,receiver_name,receiver_pw,role
+            while(rs.next()){
+                int disaster_id = rs.getInt("disaster_id");
+                String disaster_name= rs.getString("disaster_name");
+                int disaster_level = rs.getInt("disaster_level");
+                int allowed_voluntary = rs.getInt("allowed_voluntary");
+                int max_voluntary = rs.getInt("max_voluntary");
+                Disaster d =  new Disaster(disaster_id, disaster_name, disaster_level, allowed_voluntary, max_voluntary);
+                array.add(d);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+        public boolean chooseDisaster(int disaster_id,Voluntary vol){
+        Data instance = Data.getInstance();
+        return instance.insert(disaster_id,vol);
+        
+    }
+
+    public boolean delete() {
+        Data instance = Data.getInstance();
+        return instance.deleteAdmin(this);
     }
 }

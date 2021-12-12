@@ -7,11 +7,14 @@ package userinterface.Main;
 
 import com.neu5100.finalproject.model.IncidentOps;
 import com.neu5100.finalproject.model.OrganizationAdmin;
-import com.neu5100.finalproject.ui.FiremanOffice.FiremanWorkArea;
-import com.neu5100.finalproject.ui.HospitalOffice.HospitalWorkArea;
+import com.neu5100.finalproject.model.Receiver;
+import com.neu5100.finalproject.model.Voluntary;
+import com.neu5100.finalproject.ui.FiremanRole.ReceiverRoleWorkArea;
 import com.neu5100.finalproject.ui.PoliceOffice.PoliceWorkArea;
-import com.neu5100.finalproject.ui.VoluntaryOffice.VoluntaryWorkArea;
+import com.neu5100.finalproject.ui.VoluntaryOffice.VoluntaryOfficecWorkArea;
+import com.neu5100.finalproject.ui.VoluntaryRole.VoluntaryWorkArea;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import userinterface.OperaterWorkarea.OperaterWorkareaJPanel;
 import userinterface.SystemadminWorkarea.SystemadminWorkareaJpanel;
 import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
@@ -33,7 +36,8 @@ public class MainJFrame extends javax.swing.JFrame {
         chooseRole.addItem("Police admin");
         chooseRole.addItem("fireman");
         chooseRole.addItem("fireman admin");
-        chooseRole.addItem("hospital");
+        chooseRole.addItem("doctor");
+        chooseRole.addItem("ambulance");
         chooseRole.addItem("hosptial admin");
         chooseRole.addItem("911 ops");
         chooseRole.addItem("voluntary admin");
@@ -191,7 +195,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if(role.equals("fireman admin")){
             OrganizationAdmin oa = new OrganizationAdmin(name.getText(), pw.getText(),1);
             if(oa.login()){
-                    FiremanWorkArea fwarea =   new FiremanWorkArea(jPanel2, oa);
+                    PoliceWorkArea fwarea =   new PoliceWorkArea(jPanel2, oa);
                     jPanel2.add(fwarea);
                      CardLayout layout = (CardLayout)jPanel2.getLayout();
                     layout.next(jPanel2);                                                           
@@ -232,7 +236,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if(role.equals("hosptial admin")){
              OrganizationAdmin oa = new OrganizationAdmin(name.getText(), pw.getText(),2);
             if(oa.login()){
-                    HospitalWorkArea area = new HospitalWorkArea(jPanel2,oa);
+                    PoliceWorkArea area = new PoliceWorkArea(jPanel2,oa);
                     jPanel2.add(area);
                      CardLayout layout = (CardLayout)jPanel2.getLayout();
                     layout.next(jPanel2);                                                           
@@ -242,7 +246,7 @@ public class MainJFrame extends javax.swing.JFrame {
          if(role.equals("voluntary admin")){
              OrganizationAdmin oa = new OrganizationAdmin(name.getText(), pw.getText(),3);
             if(oa.login()){
-                   VoluntaryWorkArea area = new VoluntaryWorkArea(jPanel2, oa);
+                   VoluntaryOfficecWorkArea area = new VoluntaryOfficecWorkArea(jPanel2, oa);
                     jPanel2.add(area);
                      CardLayout layout = (CardLayout)jPanel2.getLayout();
                     layout.next(jPanel2);                                                           
@@ -270,7 +274,57 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         }
         
-        System.out.println("login false");
+        if(role.equals("police")){
+              Receiver re = new Receiver(name.getText(), pw.getText(), 0);
+            if(re.login()){
+                   ReceiverRoleWorkArea area = new ReceiverRoleWorkArea(jPanel2, re);
+                    jPanel2.add(area);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        if(role.equals("fireman")){
+              Receiver re = new Receiver(name.getText(), pw.getText(), 1);
+            if(re.login()){
+                   ReceiverRoleWorkArea area = new ReceiverRoleWorkArea(jPanel2, re);
+                    jPanel2.add(area);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        if(role.equals("doctor")){
+              Receiver re = new Receiver(name.getText(), pw.getText(), 2);
+            if(re.login()){
+                   ReceiverRoleWorkArea area = new ReceiverRoleWorkArea(jPanel2, re);
+                    jPanel2.add(area);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        if(role.equals("ambulance")){
+              Receiver re = new Receiver(name.getText(), pw.getText(), 3);
+            if(re.login()){
+                   ReceiverRoleWorkArea area = new ReceiverRoleWorkArea(jPanel2, re);
+                    jPanel2.add(area);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        if(role.equals("voluntary")){
+              Voluntary vol = new Voluntary(name.getText(), pw.getText());
+            if(vol.login()){
+                   VoluntaryWorkArea area= new VoluntaryWorkArea(jPanel2, vol);
+                    jPanel2.add(area);
+                     CardLayout layout = (CardLayout)jPanel2.getLayout();
+                    layout.next(jPanel2);                                                           
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Please check name password and Role.");
     }//GEN-LAST:event_btnloginActionPerformed
 
     private void chooseRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseRoleActionPerformed

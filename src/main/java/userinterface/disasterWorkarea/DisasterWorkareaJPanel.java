@@ -4,9 +4,11 @@
  */
 package userinterface.disasterWorkarea;
 
+import com.neu5100.finalproject.model.AssignWorkRequest;
 import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +29,7 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
         this.ops = ops;
         //id---->ops
         refresh();
+        refreshWR();
     }
 
     /**
@@ -44,8 +47,10 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         btnManagetoAlert = new javax.swing.JButton();
         add = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblreques = new javax.swing.JTable();
 
-        btnReject.setText("publish to volunteer");
+        btnReject.setText("assign to request");
         btnReject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRejectActionPerformed(evt);
@@ -77,10 +82,24 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblreques.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "assign_id", "emergency ID", "need_police", "need_hospital", "need_fireman", "status", "disaster_id"
+            }
+        ));
+        jScrollPane3.setViewportView(tblreques);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,37 +107,50 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
                         .addComponent(add)
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addContainerGap(361, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnManagetoAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(252, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(121, Short.MAX_VALUE))))
+                                .addGap(78, 78, 78)
+                                .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnManagetoAlert)
-                        .addComponent(add))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnManagetoAlert)
+                    .addComponent(add)
                     .addComponent(btnReject))
-                .addGap(259, 259, 259))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
         // TODO add your handling code here:
+        int row = tblDisaster.getSelectedRow();
+        if ( row < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        Disaster d = (Disaster)tblDisaster.getValueAt(row, 0);
+        int selectedRowIndex = tblreques.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row first.");
+            return;
+        } 
+        AssignWorkRequest awr = (AssignWorkRequest)tblreques.getValueAt(selectedRowIndex, 0);
+        awr.setDisaster_id(d.getDisaster_id());
+        awr.update();
+        JOptionPane.showMessageDialog(this, "disaster assign to request success.");
+        refreshWR();
     }//GEN-LAST:event_btnRejectActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
@@ -136,7 +168,9 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnReject;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblDisaster;
+    private javax.swing.JTable tblreques;
     // End of variables declaration//GEN-END:variables
 
     public  void refresh() {
@@ -157,6 +191,27 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
            
             
             
+        }
+    }
+    public void refreshWR() {
+        int rowCount = tblreques.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblreques.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (AssignWorkRequest awr:ops.queryWorkRequestByRole()) {
+                
+               Object row[] = new Object[7];
+                row[0] = awr;
+                row[1] = awr.getEmergency_id();
+                row[2] = awr.getNeed_police();
+                row[3] = awr.getNeed_hospital();
+                row[4] = awr.getNeed_firman();
+                row[5] = awr.getSatus();
+                row[6] = awr.getDisaster_id();
+                model.addRow(row);
+
         }
     }
 }

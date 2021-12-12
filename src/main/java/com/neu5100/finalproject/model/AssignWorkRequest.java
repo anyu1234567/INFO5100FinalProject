@@ -25,10 +25,8 @@ public class AssignWorkRequest {
 
     @Override
     public String toString() {
-        return "" + assign_id;
+        return "" + assign_id ;
     }
-
-    
 
     public AssignWorkRequest(int assign_id, int emergency_id, int need_police, int need_hospital, int need_firman, int satus, int vol_number ,int disaster) {
         this.assign_id = assign_id;

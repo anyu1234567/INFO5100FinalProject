@@ -5,10 +5,12 @@
  */
 package com.neu5100.finalproject.ui.FiremanOffice;
 
+import com.neu5100.finalproject.model.OrganizationAdmin;
 import com.neu5100.finalproject.model.Receiver;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,11 +24,13 @@ public class AddFireman extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     Receiver receiver;
+    OrganizationAdmin admin;
     
-    public AddFireman(JPanel userProcessContainer) {
+    public AddFireman(JPanel userProcessContainer,Receiver receiver, OrganizationAdmin admin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.receiver = receiver;
+        this.admin = admin;
     }
 
     /**
@@ -171,18 +175,24 @@ public class AddFireman extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if (txtUserName.getText().equals("")||txtPassword.getText().equals("")||txtId.getText().equals(""))
+             JOptionPane.showMessageDialog(this, "Please Complete the Information!!!");
         
-        int id = Integer.parseInt(txtId.getText());
-        String name = txtUserName.getText();
-        String pw = txtPassword.getText();
+        else{
+          receiver.setReceiver_id(Integer.parseInt(txtId.getText()));
+          receiver.setReceiver_name(txtUserName.getText());
+          receiver.setReceiver_pw(txtPassword.getText());
+          
+//        if (!ecoSystem.checkIfUserIsUnique(username)) {
+//            JOptionPane.showMessageDialog(this, "UserName Has been existed!Please Input another name!");
+//        }
+//        else{
+            admin.createReceiver(receiver);
+            JOptionPane.showMessageDialog(this, "Add a Fireman");
+            receiver.update();
 
-        //Receiver receivers = ;
-
-//        dishes.setDishName(name);
-//        dishes.setDishPrice(price);
-
-        JOptionPane.showMessageDialog(this, "NEW Dish Add!");
-        //SuccessSave();
+          //}
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

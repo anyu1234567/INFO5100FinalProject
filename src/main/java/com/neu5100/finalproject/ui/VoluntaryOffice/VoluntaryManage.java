@@ -5,19 +5,34 @@
  */
 package com.neu5100.finalproject.ui.VoluntaryOffice;
 
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Disaster;
+import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.model.Receiver;
+import com.neu5100.finalproject.model.Voluntary;
 import com.neu5100.finalproject.ui.FiremanOffice.*;
+import com.neu5100.finalproject.ui.PoliceOffice.PolicemanManage;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Lenovo
  */
 public class VoluntaryManage extends javax.swing.JPanel {
-
+    JPanel userProcessContainer;
+    OrganizationAdmin admin;
     /**
      * Creates new form FiremanManage
      */
-    public VoluntaryManage() {
+    public VoluntaryManage(JPanel userProcessContainer, OrganizationAdmin admin) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.admin = admin;
+        refreshVol();
     }
 
     /**
@@ -34,7 +49,6 @@ public class VoluntaryManage extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVoluntary = new javax.swing.JTable();
-        btnView = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -51,18 +65,16 @@ public class VoluntaryManage extends javax.swing.JPanel {
 
         tblVoluntary.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "UserName", "Password", "Type(Individual or not)"
+                "ID", "UserName", "Password", "Type(Individual or not)", "city", "email"
             }
         ));
         jScrollPane1.setViewportView(tblVoluntary);
-
-        btnView.setText("View");
 
         btnDelete.setText("Delete");
 
@@ -85,7 +97,18 @@ public class VoluntaryManage extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(jLabel2)))
+                .addGap(0, 250, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnBack)
@@ -96,21 +119,8 @@ public class VoluntaryManage extends javax.swing.JPanel {
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btnModify, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jLabel2)))
-                .addGap(0, 154, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,23 +138,55 @@ public class VoluntaryManage extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
-                    .addComponent(btnModify)
-                    .addComponent(btnView))
+                    .addComponent(btnModify))
                 .addContainerGap(262, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+        
+        String searchtext = txtSearch.getText();
+        
+        if(searchtext == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblVoluntary.getModel();
+        model.setRowCount(0);
+
+        for (Voluntary vol:admin.queryAllVol()) {
+                
+               Object row[] = new Object[6];
+                row[0] = vol;
+                row[1] = vol.getVname();
+                row[2] = vol.getPw();
+                row[3] = vol.getIs_individual();
+                row[4] = vol.getCity();
+                row[5] = vol.getEmail();
+                model.addRow(row);
+
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
         // TODO add your handling code here:
+         int row = tblVoluntary.getSelectedRow();
+    if ( row < 0){
+        JOptionPane.showMessageDialog(this, "Please select an row first.");
+        return;
+    }    
+    Voluntary vol = (Voluntary)tblVoluntary.getValueAt(row, 0);
+        ViewRegisterJpanel firemanManage =new ViewRegisterJpanel(userProcessContainer,vol);
+        userProcessContainer.add("firemanManage",firemanManage);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnModifyActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        //backAction();
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
     
 //    private void backAction(){
@@ -158,10 +200,31 @@ public class VoluntaryManage extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblVoluntary;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    public void refreshVol() {
+        int rowCount = tblVoluntary.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblVoluntary.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (AssignWorkRequest awr:admin.queryWorkRequestByRole()) {
+                
+               Object row[] = new Object[7];
+                row[0] = awr;
+                row[1] = awr.getEmergency_id();
+                row[2] = awr.getNeed_police();
+                row[3] = awr.getNeed_hospital();
+                row[4] = awr.getNeed_firman();
+                row[5] = awr.getSatus();
+                row[6] = awr.getDisaster_id();
+                model.addRow(row);
+
+        }
+    }
 }

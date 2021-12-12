@@ -6,7 +6,10 @@
 package com.neu5100.finalproject.ui.PoliceOffice;
 
 import com.neu5100.finalproject.model.OrganizationAdmin;
+import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
+import com.neu5100.finalproject.ui.FiremanOffice.FiresafetyRequestManage;
 import com.neu5100.finalproject.ui.HospitalOffice.*;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -46,7 +49,7 @@ public class PoliceWorkArea extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
 
         jLabel4.setFont(new java.awt.Font("宋体", 0, 20)); // NOI18N
-        jLabel4.setText("Police Organization");
+        jLabel4.setText("Admin Organization");
 
         jLabel1.setText("Hi");
 
@@ -54,7 +57,7 @@ public class PoliceWorkArea extends javax.swing.JPanel {
 
         jLabel3.setText("!!!");
 
-        btnManagePolice.setText("Manage Police");
+        btnManagePolice.setText("Manage  Receiver");
         btnManagePolice.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 btnManagePoliceComponentShown(evt);
@@ -141,10 +144,18 @@ public class PoliceWorkArea extends javax.swing.JPanel {
 
     private void btnManagePoliceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePoliceActionPerformed
         // TODO add your handling code here:
+        PolicemanManage policemanManage =new PolicemanManage(userProcessContainer,organizationAdmin);
+        userProcessContainer.add("policemanManage",policemanManage);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManagePoliceActionPerformed
 
     private void btnManageRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRequestActionPerformed
         // TODO add your handling code here:
+        PoliceRequestManage plrm =new PoliceRequestManage(userProcessContainer,organizationAdmin);
+        userProcessContainer.add(plrm);
+        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);  
     }//GEN-LAST:event_btnManageRequestActionPerformed
 
     private void btnManagePoliceComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnManagePoliceComponentShown
