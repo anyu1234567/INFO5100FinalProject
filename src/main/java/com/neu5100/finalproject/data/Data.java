@@ -666,5 +666,17 @@ public class Data {
         }
     }
 
+    public boolean deleteAdmin(OrganizationAdmin admin) {
+         String sql  = "DELETE FROM `ecosystem`.`org_admin` WHERE `admin_id` = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, admin.getAdmin_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
     
 }

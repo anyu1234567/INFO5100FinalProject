@@ -109,6 +109,11 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("view");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +205,18 @@ public class SystemadminWorkareaJpanel extends javax.swing.JPanel {
      CardLayout layout = (CardLayout)userProcessContainer.getLayout();
      layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         int row = tblAdmin.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        OrganizationAdmin ad = (OrganizationAdmin)tblAdmin.getValueAt(row, 0); 
+        ad.delete();
+        refreshAdmin();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

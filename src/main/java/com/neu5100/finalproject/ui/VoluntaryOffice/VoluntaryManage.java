@@ -23,20 +23,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Lenovo
  */
 public class VoluntaryManage extends javax.swing.JPanel {
-    
     JPanel userProcessContainer;
     OrganizationAdmin admin;
     /**
      * Creates new form FiremanManage
      */
-    
-    public VoluntaryManage(JPanel userProcessContainer,OrganizationAdmin admin) {
-
+    public VoluntaryManage(JPanel userProcessContainer, OrganizationAdmin admin) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.admin = admin;
         refreshVol();
-
     }
 
     /**
