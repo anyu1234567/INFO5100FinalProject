@@ -653,5 +653,18 @@ public class Data {
         }
     }
 
+    public boolean deleDisVol(Disaster d, Voluntary vol) {
+        String sql  = "DELETE FROM `ecosystem`.`disaster_vol` WHERE `voluntary_id` = ? and `disaster_id` = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, vol.getVid());
+            stmt.setInt(2, d.getDisaster_id());
+            return stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        }
+    }
+
     
 }

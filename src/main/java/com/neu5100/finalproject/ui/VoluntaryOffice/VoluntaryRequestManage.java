@@ -31,7 +31,7 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
         this.userProcessContainer =userProcessContainer;
         this.admin = admin;
         refreshDi();
-        
+        refreshVol();
     }
 
     /**
@@ -48,13 +48,14 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
         btnAccept = new javax.swing.JButton();
         btnAssign = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDisaster = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblreques = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblVol = new javax.swing.JTable();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +75,11 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
         });
 
         btnAssign.setText("Assign Request");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnReject.setText("Reject Request");
         btnReject.addActionListener(new java.awt.event.ActionListener() {
@@ -82,9 +88,7 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setText("Non-profit Organization");
-
-        jLabel6.setText("Individual Voluntary");
+        jLabel6.setText("Voluntary");
 
         tblDisaster.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,6 +123,19 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
             }
         });
 
+        tblVol.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "vol id"
+            }
+        ));
+        jScrollPane4.setViewportView(tblVol);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,25 +143,16 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jScrollPane2)
+                        .addGap(161, 161, 161))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnBack)
                                 .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(165, 165, 165)
-                                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(61, 61, 61))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(57, 57, 57)
-                                            .addComponent(jScrollPane2)))
-                                    .addGap(161, 161, 161)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(177, 177, 177))))
@@ -157,31 +165,43 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAccept)
-                    .addComponent(btnReject)
-                    .addComponent(jButton1))
-                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addComponent(btnAssign))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(293, 293, 293))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAccept)
+                            .addComponent(btnReject)
+                            .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAssign))
+                        .addGap(293, 293, 293))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,6 +252,29 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
          JOptionPane.showMessageDialog(this, "request rejected");
     }//GEN-LAST:event_btnRejectActionPerformed
 
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+       int row = tblDisaster.getSelectedRow();
+        if ( row < 0){
+            JOptionPane.showMessageDialog(this, "Please select a disaster row first.");
+            return;
+        } 
+        
+         Disaster d = (Disaster)tblDisaster.getValueAt(row, 0);
+        
+        
+        
+        int selectedRowIndex = tblVol.getSelectedRow();
+        if ( selectedRowIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a voluntary row first.");
+            return;
+        } 
+        
+         Voluntary vol = (Voluntary)tblVol.getValueAt(selectedRowIndex, 0);
+         admin.chooseDisaster(d.getDisaster_id(), vol);
+         JOptionPane.showMessageDialog(this, "assign disaster success");
+    }//GEN-LAST:event_btnAssignActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccept;
@@ -240,15 +283,16 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
     private javax.swing.JButton btnReject;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblDisaster;
+    private javax.swing.JTable tblVol;
     private javax.swing.JTable tblreques;
     // End of variables declaration//GEN-END:variables
 
-    private void refreshWR(int disasterid) {
+    public void refreshWR(int disasterid) {
         int rowCount = tblreques.getRowCount();
         DefaultTableModel model = (DefaultTableModel) tblreques.getModel();
         for(int i=rowCount-1;i>=0;i--){
@@ -270,7 +314,7 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
         }
     }
 
-    private void refreshDi() {
+    public void refreshDi() {
         int rowCount = tblDisaster.getRowCount();
         DefaultTableModel model = (DefaultTableModel) tblDisaster.getModel();
         for(int i=rowCount-1;i>=0;i--){
@@ -289,6 +333,21 @@ public class VoluntaryRequestManage extends javax.swing.JPanel {
            
             
             
+        }
+    }
+    public void refreshVol(){
+        int rowCount = tblVol.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblVol.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (Voluntary vol:admin.queryAllVol()) {
+                
+               Object row[] = new Object[7];
+                row[0] = vol;
+                model.addRow(row);
+
         }
     }
 }

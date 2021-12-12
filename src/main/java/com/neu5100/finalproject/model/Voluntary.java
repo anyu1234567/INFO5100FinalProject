@@ -187,4 +187,9 @@ public class Voluntary {
             return null;
         }
     }
+
+    public boolean rejectDisaster(Disaster d) {
+        Data instance = Data.getInstance();
+        return instance.deleDisVol(d,this);
+    }
 }

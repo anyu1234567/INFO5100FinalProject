@@ -406,4 +406,9 @@ public class OrganizationAdmin {
             return null;
         }
     }
+        public boolean chooseDisaster(int disaster_id,Voluntary vol){
+        Data instance = Data.getInstance();
+        return instance.insert(disaster_id,vol);
+        
+    }
 }
