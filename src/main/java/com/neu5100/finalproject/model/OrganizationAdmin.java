@@ -411,4 +411,9 @@ public class OrganizationAdmin {
         return instance.insert(disaster_id,vol);
         
     }
+
+    public boolean delete() {
+        Data instance = Data.getInstance();
+        return instance.deleteAdmin(this);
+    }
 }
