@@ -6,6 +6,8 @@
 package userinterface.OperaterWorkarea;
 
 import com.neu5100.finalproject.data.Test;
+import com.neu5100.finalproject.model.AssignWorkRequest;
+import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.Emergency;
 import com.neu5100.finalproject.model.IncidentOps;
 import java.awt.CardLayout;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.SuicideWorkarea.SuicideWorkareaJPanel;
+import userinterface.disasterWorkarea.AddDisasterJPanel;
 import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
 
 /**
@@ -22,15 +25,17 @@ import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
  */
 public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
-     private JPanel OperatorProcessContainer;
+     private JPanel userProcessContainer;
      private IncidentOps ops;
     /**
      * Creates new form OperaterWorkareaJPanel
      */
-    public OperaterWorkareaJPanel(JPanel user ,IncidentOps incidentOps ) {
+    public OperaterWorkareaJPanel(JPanel userProcessContainer ,IncidentOps incidentOps ) {
         initComponents();
-        this.OperatorProcessContainer = user;
+        this.userProcessContainer = userProcessContainer;
         this.ops = incidentOps;
+        refreshEmergency();
+        refreshWorkRequest();
     }
 
     /**
@@ -43,27 +48,20 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnCreate = new javax.swing.JButton();
         btnDisaster = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
         btnProcess1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         EventTable1 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnSuiside = new javax.swing.JButton();
+        create = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblreques = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("911 OPERATOR WORK AREA");
-
-        btnCreate.setText("Create");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
 
         btnDisaster.setText("report to disaster organization");
         btnDisaster.addActionListener(new java.awt.event.ActionListener() {
@@ -88,29 +86,16 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
         EventTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "emergency ID", "Police", "Hospital", "firesaty", "status"
+                "emergency ID", "ename", "pop id", "situation", "time", "zipcode", "opsid"
             }
         ));
         jScrollPane2.setViewportView(EventTable1);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Refresh");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -128,41 +113,61 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
             }
         });
 
+        create.setText("create");
+        create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createActionPerformed(evt);
+            }
+        });
+
+        tblreques.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "assign_id", "emergency ID", "need_police", "need_hospital", "need_fireman", "status", "disaster_id"
+            }
+        ));
+        jScrollPane3.setViewportView(tblreques);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(251, 251, 251)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(btnProcess1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDisaster)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSuiside, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(371, 371, 371)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(251, 251, 251)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(76, 76, 76)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(55, 55, 55)
-                                    .addComponent(btnProcess1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(50, 50, 50)
-                                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnDisaster)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSuiside, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(177, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(577, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,49 +177,46 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnProcess1)
-                    .addComponent(btnView))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnProcess1)
+                            .addComponent(btnView))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDisaster)
+                            .addComponent(btnSuiside)))
+                    .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDisaster)
-                    .addComponent(btnSuiside))
-                .addGap(62, 62, 62)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(48, 48, 48))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
-       CreateEmergencyJPanel createJPanel  = new  CreateEmergencyJPanel(OperatorProcessContainer,ops);
-       OperatorProcessContainer.add(createJPanel);
-       CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-       layout.next(OperatorProcessContainer);
-       
-    }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnProcess1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcess1ActionPerformed
         // TODO add your handling code here:
         
-       int selectedRowIndex = EventTable1.getSelectedRow();
-       if ( selectedRowIndex < 0){
-           JOptionPane.showMessageDialog(this, "Please select an order first.");
+       int row = EventTable1.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
-       }       
+        }
+        Emergency e = (Emergency)EventTable1.getValueAt(row, 0);   
         
-       DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();  
         
         
-     ProcessJPanel processJPanel = new ProcessJPanel(OperatorProcessContainer,(int)model.getValueAt(selectedRowIndex, 0));
-     OperatorProcessContainer.add("ProcessJPanel",processJPanel);
-     CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-     layout.next(OperatorProcessContainer);
+        
+     ProcessJPanel processJPanel = new ProcessJPanel(userProcessContainer,e, ops, 0);
+     userProcessContainer.add(processJPanel);
+     CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+     layout.next(userProcessContainer);
            
         
     }//GEN-LAST:event_btnProcess1ActionPerformed
@@ -230,10 +232,10 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
         
        DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
         
-        ViewEventJPanel viewEventJPanel = new ViewEventJPanel(OperatorProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
-        OperatorProcessContainer.add("ViewEventJPanel",viewEventJPanel);
-        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-        layout.next(OperatorProcessContainer);
+        ViewEventJPanel viewEventJPanel = new ViewEventJPanel(userProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
+        userProcessContainer.add("ViewEventJPanel",viewEventJPanel);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnDisasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisasterActionPerformed
@@ -254,6 +256,8 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        refreshEmergency();
+        refreshWorkRequest();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnSuisideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuisideActionPerformed
@@ -266,47 +270,82 @@ public class OperaterWorkareaJPanel extends javax.swing.JPanel {
         
        DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
         
-        SuicideWorkareaJPanel suicideWorkareaJPanel = new SuicideWorkareaJPanel(OperatorProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
-        OperatorProcessContainer.add("SuicideWorkareaJPanel",suicideWorkareaJPanel);
-        CardLayout layout = (CardLayout)OperatorProcessContainer.getLayout();
-        layout.next(OperatorProcessContainer);
+        SuicideWorkareaJPanel suicideWorkareaJPanel = new SuicideWorkareaJPanel(userProcessContainer, (int)model.getValueAt(selectedRowIndex, 0));
+        userProcessContainer.add("SuicideWorkareaJPanel",suicideWorkareaJPanel);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnSuisideActionPerformed
 
+    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+        // TODO add your handling code here:
+        AddEmergencyJpanel cejp = new AddEmergencyJpanel(userProcessContainer,this.ops);
+        userProcessContainer.add(cejp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_createActionPerformed
+
     
-     public void populateOrderTable(){
-//       DefaultTableModel model = (DefaultTableModel) tableOrderList.getModel();
-//        model.setRowCount(0);
-//       for (OrderRequest workRequest: customer.getCustomerAccount().getWorkQueue().getOrderRequestList()) {
-//            Object row[] = new Object[5];
-//            System.out.println(workRequest);
-//            row[0] = workRequest;
-//            row[1] = workRequest.getRestaurant().getRestaurantAccount().getEmployee().getName();
-//            DeliveryMan deliveryMan = workRequest.getDeliveryMan();
-//            row[2] = deliveryMan == null ? "Waiting for choice" : deliveryMan.getDeliveryManAccount().getEmployee().getName();
-//            row[3] = workRequest.getStatus();
-//           row[4] = workRequest.getComment();
-//            model.addRow(row);
-//        }
+     public void refreshEmergency(){
+            int rowCount = EventTable1.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) EventTable1.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (Emergency e:ops.queryEmergency()) {
+                
+               Object row[] = new Object[7];
+                row[0] = e;
+                row[1] = e.getEname();
+                row[2] = e.getPopid();
+                row[3] = e.getSituation();
+                row[4] = e.getTime();
+                row[5] = e.getZipcode();
+                row[6] = e.getOpsid();
+                model.addRow(row);
+           
+            
+            
+        }
+     }
+      public void refreshWorkRequest(){
+            int rowCount = tblreques.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tblreques.getModel();
+        for(int i=rowCount-1;i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        for (AssignWorkRequest awr:ops.queryWorkRequestByRole()) {
+                
+               Object row[] = new Object[7];
+                row[0] = awr;
+                row[1] = awr.getEmergency_id();
+                row[2] = awr.getNeed_police();
+                row[3] = awr.getNeed_hospital();
+                row[4] = awr.getNeed_firman();
+                row[5] = awr.getSatus();
+                row[6] = awr.getDisaster_id();
+                model.addRow(row);
+           
+            
+            
+        }
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EventTable1;
-    private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDisaster;
     private javax.swing.JButton btnProcess1;
     private javax.swing.JButton btnSuiside;
     private javax.swing.JButton btnView;
+    private javax.swing.JButton create;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblreques;
     // End of variables declaration//GEN-END:variables
 
-    private static class tableOrderList {
 
-        public tableOrderList() {
-        }
-    }
 }

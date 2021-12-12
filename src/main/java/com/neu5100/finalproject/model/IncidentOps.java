@@ -145,4 +145,51 @@ public class IncidentOps {
             return null;
         }
     }
+    public ArrayList<Emergency> queryEmergency(){
+        try {
+            Data instance = Data.getInstance();
+            ResultSet rs = instance.queryAllEmergency();
+            ArrayList<Emergency> array = new ArrayList<>();
+            //
+            while(rs.next()){
+                int id = rs.getInt("eid");
+                String ename = rs.getString("ename");
+                int popid= rs.getInt("popid");
+                String situation = rs.getString("situation");
+                 String time = rs.getString("time");
+                int zipcode = rs.getInt("zipcode");
+                int opsid = rs.getInt("opsid");
+                Emergency e =new Emergency(id, ename, popid, situation, time, zipcode, opsid);
+                array.add(e);
+            }
+            return array;
+        } catch (SQLException ex) {
+            Logger.getLogger(Voluntary.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+     public ArrayList<AssignWorkRequest> queryWorkRequestByRole(){
+         try {
+            Data instance = Data.getInstance();
+            ResultSet  selectForPolice =instance.selectAllWorkrequest();
+            
+             ArrayList<AssignWorkRequest> arry = new ArrayList<>();
+            while(selectForPolice.next()){
+                int aid = selectForPolice.getInt("assign_id");
+                int eid = selectForPolice.getInt("emergency_id");
+                int need_police = selectForPolice.getInt("need_police");
+                int need_hospital = selectForPolice.getInt("need_hospital");
+                int need_fireman = selectForPolice.getInt("need_fireman");
+                int status = selectForPolice.getInt("status");
+                int vol_num = selectForPolice.getInt("vol_number");
+                int disaster = selectForPolice.getInt("disaster_id");
+                AssignWorkRequest awr = new AssignWorkRequest(aid, eid, need_police, need_hospital, need_fireman, status, vol_num, disaster);
+                arry.add(awr);      
+            }
+            return arry;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrganizationAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

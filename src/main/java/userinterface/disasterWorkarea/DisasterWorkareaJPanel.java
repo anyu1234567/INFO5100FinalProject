@@ -6,6 +6,7 @@ package userinterface.disasterWorkarea;
 
 import com.neu5100.finalproject.model.Disaster;
 import com.neu5100.finalproject.model.IncidentOps;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,15 +15,15 @@ import javax.swing.table.DefaultTableModel;
  * @author liuyi
  */
 public class DisasterWorkareaJPanel extends javax.swing.JPanel {
-    private JPanel OperatorProcessContainer;
+    private JPanel userProcessContainer;
     private IncidentOps ops;
    
     /**
      * Creates new form disasterOpreatorWorkarea
      */
-    public DisasterWorkareaJPanel(JPanel operatorProcessContainer, IncidentOps ops) {
+    public DisasterWorkareaJPanel(JPanel userProcessContainer, IncidentOps ops) {
         initComponents();
-        this.OperatorProcessContainer = operatorProcessContainer;
+        this.userProcessContainer = userProcessContainer;
         this.ops = ops;
         //id---->ops
         refresh();
@@ -122,7 +123,10 @@ public class DisasterWorkareaJPanel extends javax.swing.JPanel {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
-        
+        AddDisasterJPanel adjp = new AddDisasterJPanel(userProcessContainer,ops);
+        userProcessContainer.add(adjp);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_addActionPerformed
 
 

@@ -7,14 +7,11 @@ package userinterface.Main;
 
 import com.neu5100.finalproject.model.IncidentOps;
 import com.neu5100.finalproject.model.OrganizationAdmin;
-import com.neu5100.finalproject.model.Receiver;
-import com.neu5100.finalproject.ui.FiremanOffice.FiremanManage;
 import com.neu5100.finalproject.ui.FiremanOffice.FiremanWorkArea;
 import com.neu5100.finalproject.ui.HospitalOffice.HospitalWorkArea;
 import com.neu5100.finalproject.ui.PoliceOffice.PoliceWorkArea;
 import com.neu5100.finalproject.ui.VoluntaryOffice.VoluntaryWorkArea;
 import java.awt.CardLayout;
-import javax.swing.JPanel;
 import userinterface.OperaterWorkarea.OperaterWorkareaJPanel;
 import userinterface.disasterWorkarea.DisasterWorkareaJPanel;
 

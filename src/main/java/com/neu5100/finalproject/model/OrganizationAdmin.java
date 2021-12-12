@@ -233,5 +233,9 @@ public class OrganizationAdmin {
         Data instance = Data.getInstance();
         return instance.updateOrgAdmin(this);
     }
+    public boolean createReceiver(Receiver re){
+        Data instance = Data.getInstance();
+        return instance.insert(re);
+    }
     
 }
