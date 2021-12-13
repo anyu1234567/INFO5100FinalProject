@@ -53,6 +53,7 @@ public class VolunteerRegisterJpanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Oriya Sangam MN", 0, 18)); // NOI18N
         jLabel1.setText("                           register to be a volunteer");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setText("username");
 
@@ -84,10 +85,10 @@ public class VolunteerRegisterJpanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(171, 171, 171)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(147, 147, 147))
+                .addContainerGap(147, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(232, 232, 232)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
